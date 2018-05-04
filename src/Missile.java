@@ -11,6 +11,7 @@ public class Missile extends PMovingImage{
 		super(img, x, y, w, h);
 		this.centeredTarget = centerGuy;
 		mag = 0.1;
+		mag = 0; //TAKE THIS OUT
 		angle = Math.toRadians(90);
 		vx = mag * Math.cos(angle);
 		vy = mag * Math.sin(angle);
