@@ -9,7 +9,7 @@ public class Player extends PMovingImage {
 	public Player(PImage img, double x, double y, double w, double h) {
 		super(img, x, y, w, h);
 		mag = 0.1;
-		angle = Math.toRadians(45);
+		angle = Math.toRadians(90);
 		vx = mag * Math.cos(angle);
 		vy = mag * Math.sin(angle);
 	}
