@@ -23,6 +23,7 @@ public class PMovingImage {
 		width = w;
 		height = h;
 		isVisible = true;
+		//kahjbjkhwbe
 	}
 
 	// METHODS
