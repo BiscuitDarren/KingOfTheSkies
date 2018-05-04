@@ -70,7 +70,7 @@ public class PMovingImage {
 	public void draw(PApplet p) {
 		if (isVisible) {
 			p.image(image, (float)( x - width/2),(float)(y - height / 2), (int) width, (int) height);
-			
+		
 		}
 	}
 

@@ -14,7 +14,7 @@ public class DrawingSurface extends PApplet {
 	public void setup() {
 		frameRate(60);
 		background(255);
-		player = new Player(loadImage("redBaron.png"),0, 0, 75, 100);
+		player = new Player(loadImage("redBaron.png"),540, 540, 75, 100);
 	}
 
 	public void draw() {
@@ -23,6 +23,7 @@ public class DrawingSurface extends PApplet {
 		
 		player.act();
 		player.draw(this);
+		
 	}
 
 	private void drawScope() {
