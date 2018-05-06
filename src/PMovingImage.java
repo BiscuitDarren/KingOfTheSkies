@@ -15,10 +15,11 @@ public abstract class PMovingImage {
 	private double angle;
 	private PImage image;
 	private boolean isVisible;
+	public final double MAX_SPEED;
 
 	// CONSTRUCTORS
 
-	public PMovingImage(PImage img, double x, double y, double w, double h) {
+	public PMovingImage(PImage img, double x, double y, double w, double h, double maxSpeed) {
 		image = img;
 		this.x = x;
 		this.y = y;
@@ -29,12 +30,26 @@ public abstract class PMovingImage {
 		vy = 0;
 		mag = 0;
 		angle = Math.toRadians(90);
+		MAX_SPEED = maxSpeed;
 
 	}
 
 	// METHODS
 	public void setImage(PImage img) {
 		this.image = img;
+	}
+	
+	public void act() {
+		if (Math.abs(mag) < MAX_SPEED)
+			mag*= 1.1;
+		else
+			mag = MAX_SPEED;
+
+		// ROTATING CODE
+
+		setVx(getMag() * Math.cos(getAngle()));
+		setVy(-1 *getMag() * Math.sin(getAngle()));
+		moveByAmount(getVx(), getVy());
 	}
 
 	public PImage getImage() {
