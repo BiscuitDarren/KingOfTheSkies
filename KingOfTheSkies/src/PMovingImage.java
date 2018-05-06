@@ -38,18 +38,16 @@ public abstract class PMovingImage {
 	public void setImage(PImage img) {
 		this.image = img;
 	}
-	
+
 	public void act() {
 		if (Math.abs(mag) < MAX_SPEED)
-			mag*= 1.1;
+			mag *= 1.1;
 		else
 			mag = MAX_SPEED;
 
-		// ROTATING CODE
-
-		setVx(getMag() * Math.cos(getAngle()));
-		setVy(-1 *getMag() * Math.sin(getAngle()));
-		moveByAmount(getVx(), getVy());
+		vx = mag * Math.cos(angle);
+		vy = -1 * mag * Math.sin(angle);
+		moveByAmount(vx, vy);
 	}
 
 	public PImage getImage() {
@@ -98,7 +96,6 @@ public abstract class PMovingImage {
 	}
 
 	public abstract void turnToward(int x, int y);
-		
 
 	public double getX() {
 		return x;
