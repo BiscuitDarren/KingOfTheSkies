@@ -5,12 +5,14 @@ import javax.swing.*;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class PMovingImage {
+public abstract class PMovingImage {
 
 	// FIELDS
 
 	private double x, y;
 	private double width, height;
+	private double vx, vy, mag;
+	private double angle;
 	private PImage image;
 	private boolean isVisible;
 
@@ -23,13 +25,14 @@ public class PMovingImage {
 		width = w;
 		height = h;
 		isVisible = true;
-		
+
 	}
 
 	// METHODS
 	public void setImage(PImage img) {
 		this.image = img;
 	}
+
 	public PImage getImage() {
 		return image;
 	}
@@ -69,9 +72,19 @@ public class PMovingImage {
 
 	public void draw(PApplet p) {
 		if (isVisible) {
-			p.image(image, (float)( x - width/2),(float)(y - height / 2), (int) width, (int) height);
-		
+
+			p.image(image, (float) (x - width / 2), (float) (y - height / 2), (int) width, (int) height);
+
 		}
+	}
+
+	public void turnToward(int x, int y) {
+		double cx = getCenterX();
+		double cy = getCenterY();
+
+		angle = Math.atan((cy - y) / (cx - x));
+		if (cx > x)
+			angle += Math.PI;
 	}
 
 	public double getX() {
@@ -92,6 +105,46 @@ public class PMovingImage {
 
 	public boolean isVisible() {
 		return isVisible;
+	}
+
+	public double getVx() {
+		return vx;
+	}
+
+	public void setVx(double vx) {
+		this.vx = vx;
+	}
+
+	public double getVy() {
+		return vy;
+	}
+
+	public void setVy(double vy) {
+		this.vy = vy;
+	}
+
+	public double getMag() {
+		return mag;
+	}
+
+	public void setMag(double mag) {
+		this.mag = mag;
+	}
+
+	public double getAngle() {
+		return angle;
+	}
+
+	public void setAngle(double angle) {
+		this.angle = angle;
+	}
+
+	public double getCenterX() {
+		return x + width / 2;
+	}
+
+	public double getCenterY() {
+		return y + height / 2;
 	}
 
 }

@@ -16,7 +16,7 @@ public class DrawingSurface extends PApplet {
 		frameRate(60);
 		background(255);
 		player = new Player(loadImage("redBaron.png"),540, 540, 75, 100);
-		testMissile = new Missile(loadImage("missile.png"),player,700, 700, 25,50);
+		testMissile = new Missile(loadImage("missile.png"),player,700, 200, 25,50);
 	}
 
 	public void draw() {
@@ -26,6 +26,7 @@ public class DrawingSurface extends PApplet {
 		testMissile.act();
 		testMissile.draw(this);
 		
+		player.turnToward(this, mouseX, mouseY);
 		player.act();
 		player.draw(this);
 		
