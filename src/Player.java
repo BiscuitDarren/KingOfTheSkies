@@ -40,4 +40,12 @@ public class Player extends PMovingImage {
 		p.popMatrix();
 	}
 
+	@Override
+	public void turnToward(int x, int y) {
+		// TODO Auto-generated method stub
+		System.out.println("USE OTHER OVERLOADED VERSION");
+	}
+
+
+
 }

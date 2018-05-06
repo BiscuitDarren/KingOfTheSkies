@@ -25,6 +25,10 @@ public abstract class PMovingImage {
 		width = w;
 		height = h;
 		isVisible = true;
+		vx = 0;
+		vy = 0;
+		mag = 0;
+		angle = Math.toRadians(90);
 
 	}
 
@@ -78,14 +82,8 @@ public abstract class PMovingImage {
 		}
 	}
 
-	public void turnToward(int x, int y) {
-		double cx = getCenterX();
-		double cy = getCenterY();
-
-		angle = Math.atan((cy - y) / (cx - x));
-		if (cx > x)
-			angle += Math.PI;
-	}
+	public abstract void turnToward(int x, int y);
+		
 
 	public double getX() {
 		return x;

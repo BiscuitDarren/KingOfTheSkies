@@ -39,4 +39,10 @@ public class Missile extends PMovingImage {
 		p.popMatrix();
 	}
 
+	@Override
+	public void turnToward(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
