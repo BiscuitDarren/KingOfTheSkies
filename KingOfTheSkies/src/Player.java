@@ -3,26 +3,17 @@ import processing.core.PImage;
 
 public class Player extends PMovingImage {
 	 // IN RADIANS
-	public static final double MAX_SPEED = 10;
 
 	public Player(PImage img, double x, double y, double w, double h) {
-		super(img, x, y, w, h);
+		super(img, x, y, w, h,10);
 		setMag(0.1);
 		setAngle(Math.toRadians(90));
 		setVx(getMag() * Math.cos(getAngle()));
 		setVy(getMag() * Math.sin(getAngle()));
 	}
 
-	public void act() {
-		if(Math.abs(getMag()) < MAX_SPEED)
-			setMag(getMag() * 1.1);
-		else
-			setMag(MAX_SPEED);
 	
-		setVx(getMag() * Math.cos(getAngle()));
-		setVy(-1 *getMag() * Math.sin(getAngle()));
-		super.moveByAmount(getVx(), getVy());
-	}
+	
 	public void turnToward(PApplet p,int x, int y) {
 		double cx = p.width;
 		double cy = p.height;
