@@ -1,3 +1,7 @@
+import java.awt.MouseInfo;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -26,7 +30,23 @@ public class Player extends PMovingImage {
 	}
 
 	public void draw(PApplet p) {
+		p.pushMatrix();
+
+		int mouseY = MouseInfo.getPointerInfo().getLocation().y;
+		int mouseX = MouseInfo.getPointerInfo().getLocation().x;   
+
+		double centerX = p.width/2;
+		double centerY = p.height/2;
+
+		double angle = Math.atan2(centerY - mouseY, centerX - mouseX) - Math.PI / 2;
+		//p.translate((float)centerX, (float)centerY);
+		p.rotate((float)Math.toRadians(180));
+
 		p.image(super.getImage(), (float) (p.width / 2 - getWidth() / 2), (float) (p.height / 2 - getHeight() / 2),(float) getWidth(),(float)getHeight());
+		
+		p.popMatrix();
 	}
+
+	
 
 }
