@@ -1,3 +1,4 @@
+import gifAnimation.Gif;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -11,7 +12,6 @@ public class DrawingSurface extends PApplet {
 	private Missile testMissile;
 
 	public DrawingSurface() {
-
 		runSketch();
 	}
 
@@ -30,7 +30,7 @@ public class DrawingSurface extends PApplet {
 		
 		testMissile.act();
 		testMissile.draw(this);
-		
+				
 		player.turnToward(this, pmouseX, pmouseY);
 		player.act();
 		player.draw(this);
