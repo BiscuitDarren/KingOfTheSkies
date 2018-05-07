@@ -47,7 +47,7 @@ public abstract class PMovingImage {
 
 	public void act() {
 		if (Math.abs(mag) <= MAX_SPEED)
-			mag *= 1.05;
+			mag *= 1.1;
 		else
 			mag = MAX_SPEED;
 

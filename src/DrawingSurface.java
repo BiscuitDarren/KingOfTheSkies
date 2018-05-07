@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import gifAnimation.Gif;
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -9,7 +11,7 @@ import processing.core.PImage;
  */
 public class DrawingSurface extends PApplet {
 	private Player player;
-	private Missile testMissile;
+	private ArrayList<Missile> missiles;
 
 	public DrawingSurface() {
 		runSketch();
@@ -21,15 +23,18 @@ public class DrawingSurface extends PApplet {
 		frameRate(120);
 		background(255);
 		player = new Player(loadImage("redBaron.png"),540, 540, 75, 100);
-		testMissile = new Missile(loadImage("missile.png"),player,700, 200, 25,50);
+		missiles = new ArrayList<Missile>();
+		missiles.add( new Missile(loadImage("missile.png"),player,700, 200, 25,50));
 	}
 
 	public void draw() {
 		background(255);
-		scale((float) width / 1080, (float) height / 1080);
+		scale((float) width / 920, (float) height / 920);
 		
-		testMissile.act();
-		testMissile.draw(this);
+		for(Missile m : missiles) {
+			m.act();
+			m.draw(this);
+		}
 				
 		player.turnToward(this, pmouseX, pmouseY);
 		player.act();
