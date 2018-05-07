@@ -1,12 +1,17 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * 
+ * @author Darren Biskup
+ *
+ */
 public class Player extends PMovingImage {
 	 // IN RADIANS
 
 	public Player(PImage img, double x, double y, double w, double h) {
 		super(img, x, y, w, h,10);
-		setMag(0.1);
+		setMag(0.01);
 		setAngle(Math.toRadians(90));
 		setVx(getMag() * Math.cos(getAngle()));
 		setVy(getMag() * Math.sin(getAngle()));
@@ -17,10 +22,14 @@ public class Player extends PMovingImage {
 	public void turnToward(PApplet p,int x, int y) {
 		double cx = p.width/2;
 		double cy = p.height/2;
+				
+		double targetAngle = -1*Math.atan((cy - y) / (cx - x));
+//		double angleDiff = getAngle() - targetAngle;
+//		double dTheta = angleDiff / 1.1;
 		
-		System.out.println(Math.atan((cy - y) / (cx - x)));
+		setAngle(targetAngle);
+
 		
-		setAngle(-1*Math.atan((cy - y) / (cx - x)));
 		if (cx > x)
 			setAngle(getAngle() + Math.PI);
 	}

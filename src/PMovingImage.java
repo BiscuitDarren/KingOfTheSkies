@@ -5,6 +5,12 @@ import javax.swing.*;
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * 
+ * @author Darren Biskup
+ *
+ *
+ */
 public abstract class PMovingImage {
 
 	// FIELDS
@@ -40,8 +46,8 @@ public abstract class PMovingImage {
 	}
 
 	public void act() {
-		if (Math.abs(mag) < MAX_SPEED)
-			mag *= 1.1;
+		if (Math.abs(mag) <= MAX_SPEED)
+			mag *= 1.05;
 		else
 			mag = MAX_SPEED;
 

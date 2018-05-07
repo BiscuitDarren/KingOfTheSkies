@@ -1,6 +1,11 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * 
+ * @author Darren Biskup and Eshan Jain
+ *
+ */
 public class DrawingSurface extends PApplet {
 	private Player player;
 	private Missile testMissile;

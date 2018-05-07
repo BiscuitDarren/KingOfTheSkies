@@ -1,8 +1,14 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * 
+ * @author Darren Biskup
+ *
+ */
 public class Missile extends PMovingImage {
 	private PMovingImage centeredTarget;
+	private int drawCount;
 
 	public Missile(PImage img, PMovingImage centerGuy, double x, double y, double w, double h) {
 		super(img, x, y, w, h, 15);
@@ -12,7 +18,7 @@ public class Missile extends PMovingImage {
 		setAngle(Math.toRadians(90));
 		setVx(getMag() * Math.cos(getAngle()));
 		setVy(getMag() * Math.sin(getAngle()));
-
+		drawCount = 0;
 	}
 
 	public void draw(PApplet p) {
@@ -23,6 +29,7 @@ public class Missile extends PMovingImage {
 		p.image(super.getImage(), (float) ((p.width / 2 + xDif) - getWidth() / 2),
 				(float) ((p.height / 2 + yDif) - getHeight() / 2), (float) getWidth(), (float) getHeight());
 		p.popMatrix();
+		drawCount++;
 	}
 	
 	public void act() {
