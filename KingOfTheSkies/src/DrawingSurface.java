@@ -13,7 +13,7 @@ public class DrawingSurface extends PApplet {
 	// The statements in the setup() function
 	// execute once when the program begins
 	public void setup() {
-		frameRate(60);
+		frameRate(120);
 		background(255);
 		player = new Player(loadImage("redBaron.png"),540, 540, 75, 100);
 		testMissile = new Missile(loadImage("missile.png"),player,700, 200, 25,50);
@@ -26,7 +26,7 @@ public class DrawingSurface extends PApplet {
 		testMissile.act();
 		testMissile.draw(this);
 		
-		player.turnToward(this, mouseX, mouseY);
+		player.turnToward(this, pmouseX, pmouseY);
 		player.act();
 		player.draw(this);
 		

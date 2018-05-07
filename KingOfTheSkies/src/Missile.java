@@ -24,6 +24,12 @@ public class Missile extends PMovingImage {
 				(float) ((p.height / 2 + yDif) - getHeight() / 2), (float) getWidth(), (float) getHeight());
 		p.popMatrix();
 	}
+	
+	public void act() {
+		//HOMING CODE
+		
+		super.act();
+	}
 
 	@Override
 	public void turnToward(int x, int y) {

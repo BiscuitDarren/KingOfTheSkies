@@ -45,6 +45,7 @@ public abstract class PMovingImage {
 		else
 			mag = MAX_SPEED;
 
+		
 		vx = mag * Math.cos(angle);
 		vy = -1 * mag * Math.sin(angle);
 		moveByAmount(vx, vy);
