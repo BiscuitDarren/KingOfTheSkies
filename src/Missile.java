@@ -21,7 +21,7 @@ public class Missile extends PMovingImage {
 		setVx(getMag() * Math.cos(getAngle()));
 		setVy(getMag() * Math.sin(getAngle()));
 		drawCount = 0;
-		MAX_dadt = Math.toRadians(2.5);
+		MAX_dadt = Math.toRadians(5);
 		pAngle = getAngle();
 	}
 
@@ -37,7 +37,6 @@ public class Missile extends PMovingImage {
 	}
 
 	public void act() {
-		// HOMING CODE
 		turnToward((int) centeredTarget.getCenterX(), (int) centeredTarget.getCenterY());
 		super.act();
 	}
@@ -49,8 +48,9 @@ public class Missile extends PMovingImage {
 		double cy = getCenterY();
 
 		double targetAngle = -1 * Math.atan((cy - y) / (cx - x));
-		double angleDiff = targetAngle - pAngle;
+		double angleDiff = targetAngle - getAngle();
 		pAngle = targetAngle;
+
 		setAngle(getAngle() + Math.signum(angleDiff) * MAX_dadt);
 	}
 
