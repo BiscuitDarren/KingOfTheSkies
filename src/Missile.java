@@ -48,6 +48,16 @@ public class Missile extends PMovingImage {
 		double cy = getCenterY();
 
 		double targetAngle = -1 * Math.atan((cy - y) / (cx - x));
+		if (cx > x)
+			targetAngle += Math.PI;
+		if (Math.max(getAngle(), targetAngle) > Math.toRadians(270)
+				&& Math.min(getAngle(), targetAngle) < Math.toRadians(90)) {
+			if (getAngle() < Math.toRadians(90))
+				setAngle(getAngle() + 2 * Math.PI);
+			else if (targetAngle < Math.toRadians(90))
+				targetAngle += 2 * Math.PI;
+		}
+
 		double angleDiff = targetAngle - getAngle();
 		pAngle = targetAngle;
 

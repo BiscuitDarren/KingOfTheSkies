@@ -24,12 +24,8 @@ public class Player extends PMovingImage {
 		double cy = p.height/2;
 				
 		double targetAngle = -1*Math.atan((cy - y) / (cx - x));
-//		double angleDiff = getAngle() - targetAngle;
-//		double dTheta = angleDiff / 1.1;
-		
 		setAngle(targetAngle);
 
-		
 		if (cx > x)
 			setAngle(getAngle() + Math.PI);
 	}
