@@ -20,7 +20,7 @@ public class DrawingSurface extends PApplet {
 	// The statements in the setup() function
 	// execute once when the program begins
 	public void setup() {
-		frameRate(120);
+		frameRate(30);
 		background(255);
 		player = new Player(loadImage("redBaron.png"),540, 540, 75, 100);
 		missiles = new ArrayList<Missile>();
