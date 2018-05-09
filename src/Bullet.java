@@ -17,6 +17,9 @@ public class Bullet extends PMovingImage{
 		
 	}
 	
+	public void hiDarren() {
+		
+	}
 
 
 	
