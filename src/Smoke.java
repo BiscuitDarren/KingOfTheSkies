@@ -1,7 +1,15 @@
 import gifAnimation.Gif;
 import processing.core.PApplet;
 import processing.core.PImage;
-
+/**
+ * 
+ * 
+ * 
+ * @author Darren Biskup 
+ * 
+ * This class represents the smoke that trails a missile. Smoke extends PMovingImage and is a gif and uses a gif library. 
+ *
+ */
 public class Smoke extends PMovingImage {
 	private Gif smokeAnimation;
 	private PMovingImage centeredTarget;
