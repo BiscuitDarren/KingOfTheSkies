@@ -2,8 +2,10 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 /**
+ * a PMovingImage that represents the plane the user controls. This character draws in the center
+ * of the screen, and missiles chase it
  * 
- * @author EshanJain
+ * @author Eshan Jain
  *
  */
 public class Player extends PMovingImage {

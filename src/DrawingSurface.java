@@ -5,6 +5,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 /**
+ * the window on which the game is drawn on
  * 
  * @author Eshan Jain
  *
