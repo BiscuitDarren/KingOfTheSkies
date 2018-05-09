@@ -20,7 +20,7 @@ public class Missile extends PMovingImage {
 		setVx(getMag() * Math.cos(getAngle()));
 		setVy(getMag() * Math.sin(getAngle()));
 		setDrawCount(0);
-		MAX_dadt = Math.toRadians(5);
+		MAX_dadt = Math.toRadians(2.5);
 		pAngle = getAngle();
 	}
 
