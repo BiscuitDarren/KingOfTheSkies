@@ -13,7 +13,7 @@ public class DrawingSurface extends PApplet {
 	private Player player;
 	private ArrayList<Missile> missiles;
 	private ArrayList<Smoke> smokes;
-	private int drawCount
+	private int drawCount = 0;
 
 	public DrawingSurface() {
 		runSketch();
@@ -28,7 +28,7 @@ public class DrawingSurface extends PApplet {
 		smokes = new ArrayList<Smoke>();
 		player = new Player(loadImage("redBaron.png"), 540, 540, 75, 100);
 		missiles.add(new Missile(loadImage("missile.png"), player, 400, 700, 25, 50));
-
+		drawCount = 0;
 	}
 
 	public void draw() {
@@ -43,11 +43,12 @@ public class DrawingSurface extends PApplet {
 			}
 
 		}
-		
+
 		for (Missile m : missiles) {
 			m.act();
 			m.draw(this);
-			smokes.add(new Smoke(this, player, m.getX(), m.getY()));
+			if (drawCount % 5 == 0)
+				smokes.add(new Smoke(this, player, m.getX(), m.getY()));
 		}
 
 		player.turnToward(this, pmouseX, pmouseY);
@@ -55,6 +56,7 @@ public class DrawingSurface extends PApplet {
 		player.draw(this);
 
 		// drawScope();
+		drawCount++;
 	}
 
 	private void drawScope() {
