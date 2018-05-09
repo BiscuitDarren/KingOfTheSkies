@@ -12,6 +12,8 @@ import processing.core.PImage;
 public class DrawingSurface extends PApplet {
 	private Player player;
 	private ArrayList<Missile> missiles;
+	private ArrayList<Smoke> smokes;
+	private int drawCount
 
 	public DrawingSurface() {
 		runSketch();
@@ -20,27 +22,39 @@ public class DrawingSurface extends PApplet {
 	// The statements in the setup() function
 	// execute once when the program begins
 	public void setup() {
-		frameRate(30);
+		frameRate(60);
 		background(255);
-		player = new Player(loadImage("redBaron.png"),540, 540, 75, 100);
 		missiles = new ArrayList<Missile>();
-		missiles.add( new Missile(loadImage("missile.png"),player,700, 200, 25,50));
+		smokes = new ArrayList<Smoke>();
+		player = new Player(loadImage("redBaron.png"), 540, 540, 75, 100);
+		missiles.add(new Missile(loadImage("missile.png"), player, 400, 700, 25, 50));
+
 	}
 
 	public void draw() {
 		background(255);
 		scale((float) width / 920, (float) height / 920);
+		for (int i = 0; i < smokes.size(); i++) {
+			if (smokes.size() > 0)
+				smokes.get(i).draw(this);
+			if (!smokes.get(i).isPlaying()) {
+				smokes.remove(i);
+				i--;
+			}
+
+		}
 		
-		for(Missile m : missiles) {
+		for (Missile m : missiles) {
 			m.act();
 			m.draw(this);
+			smokes.add(new Smoke(this, player, m.getX(), m.getY()));
 		}
-				
+
 		player.turnToward(this, pmouseX, pmouseY);
 		player.act();
 		player.draw(this);
-		
-		//drawScope();
+
+		// drawScope();
 	}
 
 	private void drawScope() {

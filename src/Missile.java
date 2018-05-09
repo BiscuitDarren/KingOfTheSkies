@@ -8,7 +8,6 @@ import processing.core.PImage;
  */
 public class Missile extends PMovingImage {
 	private PMovingImage centeredTarget;
-	private int drawCount;
 	private final double MAX_dadt;
 	private double pAngle;
 
@@ -16,12 +15,12 @@ public class Missile extends PMovingImage {
 		super(img, x, y, w, h, 11);
 		this.centeredTarget = centerGuy;
 		setMag(0.01);
-		setMag(0.0);
+		// setMag(0.0);
 		setAngle(Math.toRadians(90));
 		setVx(getMag() * Math.cos(getAngle()));
 		setVy(getMag() * Math.sin(getAngle()));
-		drawCount = 0;
-		MAX_dadt = Math.toRadians(5);
+		setDrawCount(0);
+		MAX_dadt = Math.toRadians(1);
 		pAngle = getAngle();
 	}
 
@@ -33,7 +32,7 @@ public class Missile extends PMovingImage {
 		p.rotate((float) getAngle() * -1 + p.PI / 2);
 		p.image(super.getImage(), 0, 0, (float) getWidth(), (float) getHeight());
 		p.popMatrix();
-		drawCount++;
+		incrementCount();
 	}
 
 	public void act() {
@@ -50,16 +49,16 @@ public class Missile extends PMovingImage {
 		double targetAngle = -1 * Math.atan((cy - y) / (cx - x));
 		if (cx > x)
 			targetAngle += Math.PI;
-		if (Math.max(getAngle(), targetAngle) > Math.toRadians(270)
-				&& Math.min(getAngle(), targetAngle) < Math.toRadians(90)) {
-			if (getAngle() < Math.toRadians(90))
-				setAngle(getAngle() + 2 * Math.PI);
-			else if (targetAngle < Math.toRadians(90))
-				targetAngle += 2 * Math.PI;
-		}
+		// if (Math.max(getAngle(), targetAngle) > Math.toRadians(270)
+		// && Math.min(getAngle(), targetAngle) < Math.toRadians(90)) {
+		// if (getAngle() < Math.toRadians(90))
+		// setAngle(getAngle() + 2 * Math.PI);
+		// else if (targetAngle < Math.toRadians(90))
+		// targetAngle += 2 * Math.PI;
+		// }
 
-		double angleDiff = targetAngle - getAngle();
-		pAngle = targetAngle;
+		double angleDiff = targetAngle - pAngle;
+		pAngle = getAngle();
 
 		setAngle(getAngle() + Math.signum(angleDiff) * MAX_dadt);
 	}

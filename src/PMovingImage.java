@@ -22,6 +22,7 @@ public abstract class PMovingImage {
 	private PImage image;
 	private boolean isVisible;
 	public final double MAX_SPEED;
+	private int drawCount;
 
 	// CONSTRUCTORS
 
@@ -37,7 +38,7 @@ public abstract class PMovingImage {
 		mag = 0;
 		angle = Math.toRadians(90);
 		MAX_SPEED = maxSpeed;
-
+		drawCount = 0;
 	}
 
 	// METHODS
@@ -51,7 +52,6 @@ public abstract class PMovingImage {
 		else
 			mag = MAX_SPEED;
 
-		
 		vx = mag * Math.cos(angle);
 		vy = -1 * mag * Math.sin(angle);
 		moveByAmount(vx, vy);
@@ -162,6 +162,18 @@ public abstract class PMovingImage {
 
 	public double getCenterY() {
 		return y + height / 2;
+	}
+
+	public int getDrawCount() {
+		return drawCount;
+	}
+
+	public void setDrawCount(int drawCount) {
+		this.drawCount = drawCount;
+	}
+
+	public void incrementCount() {
+		drawCount++;
 	}
 
 }
