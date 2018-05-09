@@ -15,12 +15,12 @@ public class Missile extends PMovingImage {
 		super(img, x, y, w, h, 11);
 		this.centeredTarget = centerGuy;
 		setMag(0.01);
-		//setMag(0.0);
+		setMag(0.0);
 		setAngle(Math.toRadians(90));
 		setVx(getMag() * Math.cos(getAngle()));
 		setVy(getMag() * Math.sin(getAngle()));
 		setDrawCount(0);
-		MAX_dadt = Math.toRadians(1);
+		MAX_dadt = Math.toRadians(5);
 		pAngle = getAngle();
 	}
 
