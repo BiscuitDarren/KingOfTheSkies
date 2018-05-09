@@ -24,10 +24,12 @@ public class DrawingSurface extends PApplet {
 	public void setup() {
 		frameRate(60);
 		background(255);
+		imageMode(CENTER);
 		missiles = new ArrayList<Missile>();
 		smokes = new ArrayList<Smoke>();
 		player = new Player(loadImage("redBaron.png"), 540, 540, 75, 100);
 		missiles.add(new Missile(loadImage("missile.png"), player, 400, 700, 25, 50));
+		missiles.add(new Missile(loadImage("missile.png"), player, 300, 200, 25, 50));
 		drawCount = 0;
 	}
 

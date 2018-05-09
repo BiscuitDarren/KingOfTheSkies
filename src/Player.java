@@ -34,7 +34,7 @@ public class Player extends PMovingImage {
 		p.pushMatrix();
 		p.translate(p.width / 2, p.height / 2);
 		p.rotate((float) getAngle() * -1 + p.PI/2);
-		p.image(super.getImage(), (float) ( - getWidth() / 2), (float) ( - getHeight() / 2),(float) getWidth(),(float)getHeight());
+		p.image(super.getImage(), 0, 0,(float) getWidth(),(float)getHeight());
 		p.popMatrix();
 	}
 

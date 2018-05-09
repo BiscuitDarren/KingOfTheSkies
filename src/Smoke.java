@@ -17,15 +17,12 @@ public class Smoke extends PMovingImage {
 
 	public void draw(PApplet p) {
 		p.pushMatrix();
-		p.pushStyle();
 		double xDif = getX() - centeredTarget.getX();
 		double yDif = getY() - centeredTarget.getY();
-		p.imageMode(p.CENTER);
 		p.translate((float) ((p.width / 2 + xDif) - getWidth() / 2), (float) ((p.height / 2 + yDif) - getHeight() / 2));
 		p.rotate((float) getAngle() * -1 + p.PI / 2);
 
 		p.image(smokeAnimation, 0,0);
-		p.popStyle();
 		p.popMatrix();
 	}
 	
