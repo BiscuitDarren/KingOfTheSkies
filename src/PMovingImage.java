@@ -8,7 +8,9 @@ import processing.core.PImage;
 /**
  * 
  * @author Darren Biskup
- *
+ * 
+ * An abstract class which contains fields for physics-like movement
+ * images move based on the angle and magnitude 
  *
  */
 public abstract class PMovingImage {
