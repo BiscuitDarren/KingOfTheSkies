@@ -12,14 +12,20 @@ public class Bullet extends PMovingImage{
 		super(img, x, y, w, h, maxSpeed);
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	public void turnToward(int x, int y) {
 		// TODO Auto-generated method stub
 		
 	}
 	
-	public void hiDarren() {
-		
-	}
+	
 
 
 	

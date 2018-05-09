@@ -4,7 +4,8 @@ import processing.core.PImage;
 /**
  * 
  * @author Darren Biskup
- *
+ * This class represents a missile, whose purpose is to follow the player and destroy it. Missile is a PMovingImage, and the
+ * main enemy of the game. They are also drawn relative to the player.  
  */
 public class Missile extends PMovingImage {
 	private PMovingImage centeredTarget;
