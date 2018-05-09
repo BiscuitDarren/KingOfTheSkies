@@ -3,7 +3,7 @@ import processing.core.PImage;
 
 /**
  * 
- * @author Eshan Jain 
+ * @author EshanJain
  *
  */
 public class Player extends PMovingImage {
