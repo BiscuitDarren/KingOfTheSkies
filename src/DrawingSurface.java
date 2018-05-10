@@ -8,7 +8,7 @@ import processing.core.PImage;
  * DrawingSurface is the window that everything is drawn on. It extends PApplet, and has all of the PMovingImages such as 
  * Player, Missile and Smoke as fields. This class draws everything and sets up the window. 
  * 
- * @author Eshan Jain
+ * @author Darren Biskup & Eshan Jain
  *
  */
 public class DrawingSurface extends PApplet {
