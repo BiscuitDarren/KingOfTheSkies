@@ -11,8 +11,8 @@ import processing.core.PImage;
 public class Player extends PMovingImage {
 	 // IN RADIANS
 
-	public Player(PImage img, double x, double y, double w, double h) {
-		super(img, x, y, w, h,10);
+	public Player(PImage img, int x, int y) {
+		super(img, x, y,100,100,10);
 		setMag(0.01);
 		setAngle(Math.toRadians(90));
 		setVx(getMag() * Math.cos(getAngle()));

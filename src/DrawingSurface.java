@@ -5,8 +5,9 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 /**
- * DrawingSurface is the window that everything is drawn on. It extends PApplet, and has all of the PMovingImages such as 
- * Player, Missile and Smoke as fields. This class draws everything and sets up the window. 
+ * DrawingSurface is the window that everything is drawn on. It extends PApplet,
+ * and has all of the PMovingImages such as Player, Missile and Smoke as fields.
+ * This class draws everything and sets up the window.
  * 
  * @author Darren Biskup & Eshan Jain
  *
@@ -29,9 +30,10 @@ public class DrawingSurface extends PApplet {
 		imageMode(CENTER);
 		missiles = new ArrayList<Missile>();
 		smokes = new ArrayList<Smoke>();
-		player = new Player(loadImage("redBaron.png"), 540, 540, 75, 100);
-		missiles.add(new Missile(loadImage("missile.png"), player, 400, 700, 25, 50));
-		//missiles.add(new Missile(loadImage("missile.png"), player, 300, 200, 25, 50));
+		player = new Player(loadImage("redBaron.png"), 540, 540);
+		missiles.add(new Missile(loadImage("missile.png"), player, 400, 700));
+		// missiles.add(new Missile(loadImage("missile.png"), player, 300, 200, 25,
+		// 50));
 		drawCount = 0;
 	}
 
@@ -48,11 +50,17 @@ public class DrawingSurface extends PApplet {
 
 		}
 
-		for (Missile m : missiles) {
-			m.act();
-			m.draw(this);
-			if (drawCount % 5 == 0)
-				smokes.add(new Smoke(this, player, m.getX(), m.getY()));
+		for (int i = 0; i < missiles.size(); i++) {
+			if (missiles.get(i).getDrawCount() < 600) {
+				missiles.get(i).act();
+				missiles.get(i).draw(this);
+				if (drawCount % 5 == 0)
+					smokes.add(new Smoke(this, player, missiles.get(i).getX(), missiles.get(i).getY()));
+			}else {
+				missiles.remove(i);
+				i--;
+			}
+
 		}
 
 		player.turnToward(this, pmouseX, pmouseY);

@@ -8,7 +8,7 @@ import processing.core.PImage;
  */
 public class Bullet extends PMovingImage{
 
-	public Bullet(PImage img, double x, double y, double w, double h, double maxSpeed) {
+	public Bullet(PImage img, int x, int y, int w, int h, double maxSpeed) {
 		super(img, x, y, w, h, maxSpeed);
 		
 	}

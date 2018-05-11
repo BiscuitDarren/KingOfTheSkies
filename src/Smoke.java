@@ -16,7 +16,7 @@ public class Smoke extends PMovingImage {
 	private Gif smokeAnimation;
 	private PMovingImage centeredTarget;
 
-	public Smoke(PApplet parent, PMovingImage center, double x, double y) {
+	public Smoke(PApplet parent, PMovingImage center, int x, int y) {
 		super(parent.loadImage("smoke.gif"), x, y, 10, 10, 0);
 		// TODO Auto-generated constructor stub
 		centeredTarget = center;

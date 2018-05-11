@@ -12,8 +12,8 @@ public class Missile extends PMovingImage {
 	private final double MAX_dadt;
 	private double pAngle;
 
-	public Missile(PImage img, PMovingImage centerGuy, double x, double y, double w, double h) {
-		super(img, x, y, w, h, 11);
+	public Missile(PImage img, PMovingImage centerGuy, int x, int y) {
+		super(img, x, y, 20, 50, 11);
 		this.centeredTarget = centerGuy;
 		setMag(0.01);
 		// setMag(0.0);
@@ -50,8 +50,6 @@ public class Missile extends PMovingImage {
 		double targetAngle = -1 * Math.atan((cy - y) / (cx - x));
 		if (cx > x)
 			targetAngle += Math.PI;
-	
-		
 
 		double angleDiff = targetAngle - pAngle;
 		pAngle = getAngle();

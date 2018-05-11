@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.*;
 import javax.swing.*;
 
@@ -9,16 +10,16 @@ import processing.core.PImage;
  * 
  * @author Darren Biskup
  * 
- * An abstract class which contains fields for physics-like movement
- * images move based on the angle and magnitude 
+ *         An abstract class which contains fields for physics-like movement
+ *         images move based on the angle and magnitude
  *
  */
 public abstract class PMovingImage {
 
 	// FIELDS
 
-	private double x, y;
-	private double width, height;
+	private int x, y;
+	private int width, height;
 	private double vx, vy, mag;
 	private double angle;
 	private PImage image;
@@ -28,7 +29,7 @@ public abstract class PMovingImage {
 
 	// CONSTRUCTORS
 
-	public PMovingImage(PImage img, double x, double y, double w, double h, double maxSpeed) {
+	public PMovingImage(PImage img, int x, int y, int w, int h, double maxSpeed) {
 		image = img;
 		this.x = x;
 		this.y = y;
@@ -67,14 +68,14 @@ public abstract class PMovingImage {
 		isVisible = visible;
 	}
 
-	public void moveToLocation(double x, double y) {
+	public void moveToLocation(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	public void moveByAmount(double x, double y) {
-		this.x += x;
-		this.y += y;
+	public void moveByAmount(double vx, double vy) {
+		this.x += vx;
+		this.y += vy;
 	}
 
 	public void applyWindowLimits(int windowWidth, int windowHeight) {
@@ -84,14 +85,14 @@ public abstract class PMovingImage {
 		y = Math.max(0, y);
 	}
 
-	public boolean isPointInImage(double mouseX, double mouseY) {
+	public boolean isPointInImage(int mouseX, int mouseY) {
 		if (mouseX >= x && mouseY >= y && mouseX <= x + width && mouseY <= y + height) {
 			return true;
 		}
 		return false;
 	}
 
-	public void resize(double w, double h) {
+	public void resize(int w, int h) {
 		width = w;
 		height = h;
 	}
@@ -104,21 +105,32 @@ public abstract class PMovingImage {
 		}
 	}
 
+	public boolean collidesWith(PMovingImage other) {
+		for(int i = 0; i<image.pixels.length;i++) {
+			int thisX = i % getWidth() + getX();
+			int thisY = i / getWidth() + getY();
+			
+			if()
+			
+		}
+		return false;
+	}
+
 	public abstract void turnToward(int x, int y);
 
-	public double getX() {
+	public int getX() {
 		return x;
 	}
 
-	public double getY() {
+	public int getY() {
 		return y;
 	}
 
-	public double getWidth() {
+	public int getWidth() {
 		return width;
 	}
 
-	public double getHeight() {
+	public int getHeight() {
 		return height;
 	}
 
@@ -158,11 +170,11 @@ public abstract class PMovingImage {
 		this.angle = angle;
 	}
 
-	public double getCenterX() {
+	public int getCenterX() {
 		return x + width / 2;
 	}
 
-	public double getCenterY() {
+	public int getCenterY() {
 		return y + height / 2;
 	}
 
