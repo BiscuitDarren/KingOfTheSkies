@@ -67,6 +67,11 @@ public class DrawingSurface extends PApplet {
 		player.act();
 		player.draw(this);
 
+		
+		for(Life l : player.getHealth()) {
+			l.draw(this);
+		}
+		
 		// drawScope();
 		drawCount++;
 	}

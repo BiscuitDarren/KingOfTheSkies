@@ -110,7 +110,7 @@ public abstract class PMovingImage {
 			int thisX = i % getWidth() + getX();
 			int thisY = i / getWidth() + getY();
 			
-			if()
+			//if()
 			
 		}
 		return false;
