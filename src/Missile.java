@@ -1,3 +1,5 @@
+import java.awt.geom.Line2D;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -10,7 +12,6 @@ import processing.core.PImage;
 public class Missile extends PMovingImage {
 	private PMovingImage centeredTarget;
 	private final double MAX_dadt;
-	private double pAngle;
 
 	public Missile(PImage img, PMovingImage centerGuy, int x, int y) {
 		super(img, x, y, 20, 50, 11);
@@ -22,7 +23,6 @@ public class Missile extends PMovingImage {
 		setVy(getMag() * Math.sin(getAngle()));
 		setDrawCount(0);
 		MAX_dadt = Math.toRadians(2.5);
-		pAngle = getAngle();
 	}
 
 	public void draw(PApplet p) {
@@ -30,7 +30,7 @@ public class Missile extends PMovingImage {
 		double xDif = getX() - centeredTarget.getX();
 		double yDif = getY() - centeredTarget.getY();
 		p.translate((float) (p.width / 2 + xDif), (float) (p.height / 2 + yDif));
-		p.rotate((float) getAngle() * -1 + p.PI / 2);
+		p.rotate((float) getAngle() + p.PI / 2);
 		p.image(super.getImage(), 0, 0, (float) getWidth(), (float) getHeight());
 		p.popMatrix();
 		incrementCount();
@@ -47,12 +47,19 @@ public class Missile extends PMovingImage {
 		double cx = getCenterX();
 		double cy = getCenterY();
 
-		double targetAngle = -1 * Math.atan((cy - y) / (cx - x));
+		double targetAngle = Math.atan((cy - y) / (cx - x));
 		if (cx > x)
 			targetAngle += Math.PI;
+		
+		if (targetAngle > Math.toRadians(270) && getAngle() < Math.toRadians(90))
+			setAngle(getAngle() + Math.PI * 2);
+		if (getAngle() > Math.toRadians(270) && targetAngle < Math.toRadians(90))
+			targetAngle += Math.PI * 2;
 
-		double angleDiff = targetAngle - pAngle;
-		pAngle = getAngle();
+		double angleDiff = targetAngle - getAngle();
+		// pAngle = getAngle();
+
+		//System.out.println(getAngle() + " " + targetAngle);
 
 		setAngle(getAngle() + Math.signum(angleDiff) * MAX_dadt);
 	}

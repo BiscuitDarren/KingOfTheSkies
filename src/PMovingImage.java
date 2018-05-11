@@ -56,7 +56,7 @@ public abstract class PMovingImage {
 			mag = MAX_SPEED;
 
 		vx = mag * Math.cos(angle);
-		vy = -1 * mag * Math.sin(angle);
+		vy = mag * Math.sin(angle);
 		moveByAmount(vx, vy);
 	}
 
@@ -106,11 +106,10 @@ public abstract class PMovingImage {
 	}
 
 	public boolean collidesWith(PMovingImage other) {
-		for(int i = 0; i<image.pixels.length;i++) {
+		for (int i = 0; i < image.pixels.length; i++) {
 			int thisX = i % getWidth() + getX();
 			int thisY = i / getWidth() + getY();
-			
-			
+
 		}
 		return false;
 	}
