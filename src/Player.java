@@ -32,7 +32,7 @@ public class Player extends PMovingImage {
 		double cx = p.width/2;
 		double cy = p.height/2;
 				
-		double targetAngle = -1*Math.atan((cy - y) / (cx - x));
+		double targetAngle = Math.atan((cy - y) / (cx - x));
 		setAngle(targetAngle);
 
 		if (cx > x)
@@ -42,7 +42,7 @@ public class Player extends PMovingImage {
 	public void draw(PApplet p) {
 		p.pushMatrix();
 		p.translate(p.width / 2, p.height / 2);
-		p.rotate((float) getAngle() * -1 + p.PI/2);
+		p.rotate((float) getAngle()  + p.PI/2);
 		p.image(super.getImage(), 0, 0,(float) getWidth(),(float)getHeight());
 		p.popMatrix();
 	}
