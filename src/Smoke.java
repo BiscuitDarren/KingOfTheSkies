@@ -1,13 +1,15 @@
 import gifAnimation.Gif;
 import processing.core.PApplet;
 import processing.core.PImage;
+
 /**
  * 
  * 
  * 
- * @author Darren Biskup 
+ * @author Darren Biskup
  * 
- * This class represents the smoke that trails a missile. Smoke extends PMovingImage and is a gif and uses a gif library. 
+ *         This class represents the smoke that trails a missile. Smoke extends
+ *         PMovingImage and is a gif and uses a gif library.
  *
  */
 public class Smoke extends PMovingImage {
@@ -30,10 +32,10 @@ public class Smoke extends PMovingImage {
 		p.translate((float) ((p.width / 2 + xDif) - getWidth() / 2), (float) ((p.height / 2 + yDif) - getHeight() / 2));
 		p.rotate((float) getAngle() * -1 + p.PI / 2);
 
-		p.image(smokeAnimation, 0,0);
+		p.image(smokeAnimation, 0, 0, 70, 70);
 		p.popMatrix();
 	}
-	
+
 	public boolean isPlaying() {
 		return smokeAnimation.isPlaying();
 	}
