@@ -55,7 +55,7 @@ public class Player extends PMovingImage {
 	
 
 	public void resetLife() {
-		health.add(new Life(50, 50));
+		health.add(new Life(50, 50, ));
 		health.add(new Life(120, 50));
 		health.add(new Life(170, 50));
 		
