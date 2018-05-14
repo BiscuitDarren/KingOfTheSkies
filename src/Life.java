@@ -15,8 +15,8 @@ public class Life extends PMovingImage {
 	
 	//private PImage heart;
 	
-	public Life(int xcor, int ycor, PImage p) {
-		super(p, xcor, ycor, 50, 50, 0.0);
+	public Life(int xcor, int ycor, PApplet p) {
+		super(p.loadImage("black-heart.png"), xcor, ycor, 50, 50, 0.0);
 		
 		//heart = loadImage("missile.png");
 	}
