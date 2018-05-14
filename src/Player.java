@@ -51,13 +51,10 @@ public class Player extends PMovingImage {
 		System.out.println("USE OTHER OVERLOADED VERSION");
 	}
 
-		
-
 	public void resetLife(PApplet p) {
 		health.add(new Life(50, 50, p));
 		health.add(new Life(120, 50, p));
 		health.add(new Life(170, 50, p));
-
 
 	}
 
