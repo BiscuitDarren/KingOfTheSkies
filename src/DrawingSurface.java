@@ -112,7 +112,13 @@ public class DrawingSurface extends PApplet {
 		if(frameCount % 300 == 0) {
 			int seconds = frameCount / 60;
 			int missilesToSpawn = (int)(seconds /5 * 1.5) ;
-			for(int i = 0;i< missilesToSpawn; i++){int rand = random();
+			for(int i = 0;i< missilesToSpawn; i++){
+				int rand = random(10);
+				
+				if(rand >= 5){int
+					x = random(width);}
+					
+				
 				
 			}
 			
@@ -125,9 +131,11 @@ public class DrawingSurface extends PApplet {
 		noFill();
 		strokeWeight(1000);
 		stroke(0);
-		ellipse(width / 2, height / 2, 1750, 1750);
+		ellipse(widt
+			h / 2, height / 2, 1750, 1750);
 		popStyle();
 	}
+	
 
 	private void drawScore(int alpha) {
 		pushStyle();
