@@ -44,7 +44,7 @@ public class DrawingSurface extends PApplet {
 	public void draw() {
 
 		background(255);
-		image(cloud, 0, 0, width * 2, height *2);
+		//image(cloud, 0, 0, width * 2, height *2);
 		scale((float) width / 920, (float) height / 920);
 
 		// DRAWING SMOKE
@@ -103,8 +103,16 @@ public class DrawingSurface extends PApplet {
 		// MISC
 		// drawScope();
 		drawScore(100);
-
 		drawCount++;
+		
+		spawnMissiles();
+	}
+
+	private void spawnMissiles() {
+		if(frameCount % 300 == 0) {
+			int seconds = frameCount / 60;
+			int missilesToSpawn = 0;
+		}
 	}
 
 	private void drawScope() {
