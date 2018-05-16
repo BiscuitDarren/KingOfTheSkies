@@ -17,6 +17,7 @@ public class DrawingSurface extends PApplet {
 	private ArrayList<Missile> missiles;
 	private ArrayList<Smoke> smokes;
 	private int drawCount = 0;
+	private PImage cloud;
 
 	public DrawingSurface() {
 		runSketch();
@@ -36,11 +37,18 @@ public class DrawingSurface extends PApplet {
 		missiles.add(new Missile(loadImage("missile.png"), player, 400, 700));
 		missiles.add(new Missile(loadImage("missile.png"), player, 200, 400));
 		drawCount = 0;
+		cloud = loadImage("cloudBackground.png");
+		
 	}
 
 	public void draw() {
-		background(255);
+		
+		
+		
 		scale((float) width / 920, (float) height / 920);
+		
+		background(255);
+		image(cloud, 0, 0, 2000, 1500);
 
 		// DRAWING SMOKE
 		for (int i = 0; i < smokes.size(); i++) {

@@ -3,7 +3,12 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 
-
+/**
+ * 
+ * @author Eshan Jain. Code taken from Shelby Menu Demo
+ *  This makes an option panel that prompts the user with different options. 
+ *
+ */
 public class OptionPanel extends JPanel implements ActionListener {
 	
 	private Main w;

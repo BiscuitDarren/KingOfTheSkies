@@ -6,7 +6,11 @@ import javax.swing.*;
 
 import java.util.*;
 
-
+/**
+ * 
+ * @author Eshan Jain. Code taken from Shelby MenuDemo
+ * This makes a new game panel from which the game can be started.
+ */
 public class GamePanel extends JPanel implements KeyListener
 {
 
