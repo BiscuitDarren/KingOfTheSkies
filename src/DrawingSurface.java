@@ -28,18 +28,20 @@ public class DrawingSurface extends PApplet {
 		frameRate(60);
 		background(255);
 		imageMode(CENTER);
+		noCursor();
 		missiles = new ArrayList<Missile>();
 		smokes = new ArrayList<Smoke>();
 		player = new Player(this, 540, 540);
 		missiles.add(new Missile(loadImage("missile.png"), player, 400, 700));
-		// missiles.add(new Missile(loadImage("missile.png"), player, 300, 200, 25,
-		// 50));
+		missiles.add(new Missile(loadImage("missile.png"), player, 200, 400));
 		drawCount = 0;
 	}
 
 	public void draw() {
 		background(255);
 		scale((float) width / 920, (float) height / 920);
+
+		// DRAWING SMOKE
 		for (int i = 0; i < smokes.size(); i++) {
 			if (smokes.size() > 0)
 				smokes.get(i).draw(this);
@@ -50,38 +52,66 @@ public class DrawingSurface extends PApplet {
 
 		}
 
+		// DRAWING MISSILES
 		for (int i = 0; i < missiles.size(); i++) {
 			if (missiles.get(i).getDrawCount() < 600) {
 				missiles.get(i).act();
 				missiles.get(i).draw(this);
-				if (drawCount % 5 == 0)
+				if (frameCount % 5 == 0)
 					smokes.add(new Smoke(this, player, missiles.get(i).getX(), missiles.get(i).getY()));
-			}else {
+
+				// testing Collisions
+
+				for (int c = i + 1; c < missiles.size(); c++) {
+					if (missiles.get(i).collidesWith(missiles.get(c))) {
+						missiles.remove(c);
+						missiles.remove(i);
+						i--;
+						c--;
+						drawCount += 20000;
+						break;
+					}
+				}
+			} else {
 				missiles.remove(i);
+				drawCount += 10000;
 				i--;
 			}
 
 		}
 
+		// DRAWING PLAYER
 		player.turnToward(this, pmouseX, pmouseY);
 		player.act();
 		player.draw(this);
 
-		
-		for(Life l : player.getHealth()) {
+		// DRAWING LIVES
+		for (Life l : player.getHealth()) {
 			l.draw(this);
 		}
-		
+
+		// MISC
 		// drawScope();
+		drawScore(100);
+
 		drawCount++;
 	}
 
 	private void drawScope() {
 		pushStyle();
 		noFill();
-		strokeWeight(2000);
+		strokeWeight(1000);
 		stroke(0);
-		ellipse(width / 2, height / 2, 1500, 1500);
+		ellipse(width / 2, height / 2, 1750, 1750);
+		popStyle();
+	}
+
+	private void drawScore(int alpha) {
+		pushStyle();
+		// textFont(loadFont());
+		textSize(50);
+		fill(0, 102, 153, alpha);
+		text(drawCount / 60, 50, 100);
 		popStyle();
 	}
 

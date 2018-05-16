@@ -26,6 +26,7 @@ public abstract class PMovingImage {
 	private boolean isVisible;
 	public final double MAX_SPEED;
 	private int drawCount;
+	private Rectangle2D boundingRect;
 
 	// CONSTRUCTORS
 
@@ -36,12 +37,13 @@ public abstract class PMovingImage {
 		width = w;
 		height = h;
 		isVisible = true;
-		vx = 0;
-		vy = 0;
-		mag = 0;
 		angle = Math.toRadians(90);
+		mag = 0.1;
+		vx = mag * Math.cos(angle);
+		vy = mag * Math.sin(angle);
 		MAX_SPEED = maxSpeed;
 		drawCount = 0;
+		boundingRect = new Rectangle(x, y, width, height);
 	}
 
 	// METHODS
@@ -71,11 +73,14 @@ public abstract class PMovingImage {
 	public void moveToLocation(int x, int y) {
 		this.x = x;
 		this.y = y;
+		boundingRect.setFrame(x, y, width, height);
+
 	}
 
 	public void moveByAmount(double vx, double vy) {
 		this.x += vx;
 		this.y += vy;
+		boundingRect.setFrame(x, y, width, height);
 	}
 
 	public void applyWindowLimits(int windowWidth, int windowHeight) {
@@ -83,6 +88,8 @@ public abstract class PMovingImage {
 		y = Math.min(y, windowHeight - this.height);
 		x = Math.max(0, x);
 		y = Math.max(0, y);
+		boundingRect.setFrame(x, y, width, height);
+
 	}
 
 	public boolean isPointInImage(int mouseX, int mouseY) {
@@ -105,13 +112,33 @@ public abstract class PMovingImage {
 		}
 	}
 
+	// public boolean collidesWith(PMovingImage other) {
+	// for (int x = 0; x < getWidth(); x++) {
+	// for (int y = 0; y < getHeight(); y++) {
+	// if (image.pixels[y * getWidth() + x] >= 0x010000) {
+	// int thisX = x + getX();
+	// int thisY = y + getY();
+	//
+	// int xDif = thisX - other.getX();
+	// int yDif = thisY - other.getY();
+	// if (xDif >= 0 && xDif < other.getWidth() && yDif >= 0 && yDif <
+	// other.getHeight())
+	// if (other.getImage().pixels[yDif * other.getWidth() + xDif] >= 0x010000) {
+	// return true;
+	//
+	// }
+	//
+	// }
+	// }
+	// }
+	// return false;
+	// }
 	public boolean collidesWith(PMovingImage other) {
-		for (int i = 0; i < image.pixels.length; i++) {
-			int thisX = i % getWidth() + getX();
-			int thisY = i / getWidth() + getY();
+		return boundingRect.intersects(other.getBoundingRect());
+	}
 
-		}
-		return false;
+	public Rectangle2D getBoundingRect() {
+		return boundingRect;
 	}
 
 	public abstract void turnToward(int x, int y);

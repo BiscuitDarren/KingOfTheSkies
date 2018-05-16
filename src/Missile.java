@@ -16,11 +16,7 @@ public class Missile extends PMovingImage {
 	public Missile(PImage img, PMovingImage centerGuy, int x, int y) {
 		super(img, x, y, 20, 50, 11);
 		this.centeredTarget = centerGuy;
-		setMag(0.01);
-		// setMag(0.0);
-		setAngle(Math.toRadians(90));
-		setVx(getMag() * Math.cos(getAngle()));
-		setVy(getMag() * Math.sin(getAngle()));
+
 		setDrawCount(0);
 		MAX_dadt = Math.toRadians(2.5);
 	}
@@ -33,7 +29,7 @@ public class Missile extends PMovingImage {
 		p.rotate((float) getAngle() + p.PI / 2);
 		p.image(super.getImage(), 0, 0, (float) getWidth(), (float) getHeight());
 		p.popMatrix();
-		// incrementCount();
+		incrementCount();
 	}
 
 	public void act() {
@@ -51,12 +47,9 @@ public class Missile extends PMovingImage {
 		if (cx > x)
 			targetAngle += Math.PI;
 
-		
-
 		double angleDiff = targetAngle - getAngle();
 		// pAngle = getAngle();
 
-		
 		if (angleDiff > MAX_dadt)
 			setAngle(getAngle() + Math.signum(angleDiff) * MAX_dadt);
 		else

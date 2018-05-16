@@ -29,10 +29,10 @@ public class Smoke extends PMovingImage {
 		p.pushMatrix();
 		double xDif = getX() - centeredTarget.getX();
 		double yDif = getY() - centeredTarget.getY();
-		p.translate((float) ((p.width / 2 + xDif) - getWidth() / 2), (float) ((p.height / 2 + yDif) - getHeight() / 2));
+		p.translate((float) (p.width / 2 + xDif), (float) (p.height / 2 + yDif));
 		p.rotate((float) getAngle() * -1 + p.PI / 2);
 
-		p.image(smokeAnimation, 0, 0, 70, 70);
+		p.image(smokeAnimation, - getWidth() / 2,  - getHeight() / 2, 70, 70);
 		p.popMatrix();
 	}
 

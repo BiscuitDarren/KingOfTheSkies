@@ -17,10 +17,6 @@ public class Player extends PMovingImage {
 
 	public Player(PApplet p, int x, int y) {
 		super(p.loadImage("redBaron.png"), x, y, 100, 100, 10);
-		setMag(0.01);
-		setAngle(Math.toRadians(90));
-		setVx(getMag() * Math.cos(getAngle()));
-		setVy(getMag() * Math.sin(getAngle()));
 
 		health = new ArrayList<Life>();
 		resetLife(p);
