@@ -38,17 +38,14 @@ public class DrawingSurface extends PApplet {
 		missiles.add(new Missile(loadImage("missile.png"), player, 200, 400));
 		drawCount = 0;
 		cloud = loadImage("cloudBackground.png");
-		
+
 	}
 
 	public void draw() {
-		
-		
-		
-		scale((float) width / 920, (float) height / 920);
-		
+
 		background(255);
-		image(cloud, 0, 0, 2000, 1500);
+		image(cloud, 0, 0, width * 2, height *2);
+		scale((float) width / 920, (float) height / 920);
 
 		// DRAWING SMOKE
 		for (int i = 0; i < smokes.size(); i++) {
