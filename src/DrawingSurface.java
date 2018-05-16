@@ -112,6 +112,10 @@ public class DrawingSurface extends PApplet {
 		if(frameCount % 300 == 0) {
 			int seconds = frameCount / 60;
 			int missilesToSpawn = (int)(seconds /5 * 1.5) ;
+			for(int i = 0;i< missilesToSpawn; i++){int rand = random();
+				
+			}
+			
 			
 		}
 	}
