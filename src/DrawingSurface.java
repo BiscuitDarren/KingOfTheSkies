@@ -111,7 +111,8 @@ public class DrawingSurface extends PApplet {
 	private void spawnMissiles() {
 		if(frameCount % 300 == 0) {
 			int seconds = frameCount / 60;
-			int missilesToSpawn = 0;
+			int missilesToSpawn = (int)(seconds /5 * 1.5) ;
+			
 		}
 	}
 
