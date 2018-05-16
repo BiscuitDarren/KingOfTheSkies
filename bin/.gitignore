@@ -1,9 +1,11 @@
 /Bullet.class
 /DrawingSurface.class
+/Explosion.class
 /Life.class
 /Main.class
 /Missile.class
 /PMovingImage.class
 /Player.class
 /Smoke.class
-/Explosion.class
+/GamePanel.class
+/OptionPanel.class
