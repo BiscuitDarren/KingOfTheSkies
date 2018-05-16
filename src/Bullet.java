@@ -16,10 +16,6 @@ public class Bullet extends PMovingImage{
 	
 	
 	
-	
-	
-	
-	
 	public void turnToward(int x, int y) {
 		// TODO Auto-generated method stub
 		
