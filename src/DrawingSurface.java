@@ -33,7 +33,7 @@ public class DrawingSurface extends PApplet {
 		smokes = new ArrayList<Smoke>();
 		player = new Player(this, 540, 540);
 		missiles.add(new Missile(loadImage("missile.png"), player, 400, 700));
-		missiles.add(new Missile(loadImage("missile.png"), player, 200, 400));
+		//missiles.add(new Missile(loadImage("missile.png"), player, 200, 400));
 		drawCount = 0;
 	}
 
