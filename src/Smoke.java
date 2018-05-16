@@ -17,14 +17,14 @@ public class Smoke extends PMovingImage {
 	private PMovingImage centeredTarget;
 
 	public Smoke(PApplet parent, PMovingImage center, int x, int y) {
-		this(parent, "smoke.gif", center, x, y);
+		this(parent, "smoke.gif", center, x, y, 70, 70);
 	}
 
-	public Smoke(PApplet parent, String filename, PMovingImage center, int x, int y) {
-		super(parent.loadImage(filename), x, y, 10, 10, 0);
+	public Smoke(PApplet parent, String filename, PMovingImage center, int x, int y, int w, int h) {
+		super(parent.loadImage(filename), x, y, w, h, 0);
 		// TODO Auto-generated constructor stub
 		centeredTarget = center;
-		smokeAnimation = new Gif(parent, "smoke.gif");
+		smokeAnimation = new Gif(parent, filename);
 		smokeAnimation.play();
 	}
 
@@ -35,7 +35,7 @@ public class Smoke extends PMovingImage {
 		p.translate((float) (p.width / 2 + xDif), (float) (p.height / 2 + yDif));
 		p.rotate((float) getAngle() * -1 + p.PI / 2);
 
-		p.image(smokeAnimation, -getWidth() / 2, -getHeight() / 2, 70, 70);
+		p.image(smokeAnimation, 0,0, getWidth(), getHeight());
 		p.popMatrix();
 	}
 

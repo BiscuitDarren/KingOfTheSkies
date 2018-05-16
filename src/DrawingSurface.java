@@ -33,7 +33,7 @@ public class DrawingSurface extends PApplet {
 		smokes = new ArrayList<Smoke>();
 		player = new Player(this, 540, 540);
 		missiles.add(new Missile(loadImage("missile.png"), player, 400, 700));
-		//missiles.add(new Missile(loadImage("missile.png"), player, 200, 400));
+		 missiles.add(new Missile(loadImage("missile.png"), player, 200, 400));
 		drawCount = 0;
 	}
 
@@ -64,6 +64,9 @@ public class DrawingSurface extends PApplet {
 
 				for (int c = i + 1; c < missiles.size(); c++) {
 					if (missiles.get(i).collidesWith(missiles.get(c))) {
+						smokes.add(new Explosion(this, player, missiles.get(c).getX(), missiles.get(c).getY()));
+						smokes.add(new Explosion(this, player, missiles.get(i).getX(), missiles.get(i).getY()));
+						
 						missiles.remove(c);
 						missiles.remove(i);
 						i--;
