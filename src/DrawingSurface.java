@@ -28,12 +28,13 @@ public class DrawingSurface extends PApplet {
 		frameRate(60);
 		background(255);
 		imageMode(CENTER);
-		noCursor();
+		// noCursor();
+		cursor(CROSS);
 		missiles = new ArrayList<Missile>();
 		smokes = new ArrayList<Smoke>();
 		player = new Player(this, 540, 540);
 		missiles.add(new Missile(loadImage("missile.png"), player, 400, 700));
-		 missiles.add(new Missile(loadImage("missile.png"), player, 200, 400));
+		missiles.add(new Missile(loadImage("missile.png"), player, 200, 400));
 		drawCount = 0;
 	}
 
@@ -66,18 +67,19 @@ public class DrawingSurface extends PApplet {
 					if (missiles.get(i).collidesWith(missiles.get(c))) {
 						smokes.add(new Explosion(this, player, missiles.get(c).getX(), missiles.get(c).getY()));
 						smokes.add(new Explosion(this, player, missiles.get(i).getX(), missiles.get(i).getY()));
-						
+
 						missiles.remove(c);
 						missiles.remove(i);
 						i--;
 						c--;
-						drawCount += 20000;
+						drawCount += 12000;
 						break;
 					}
 				}
 			} else {
+				smokes.add(new Explosion(this, player, missiles.get(i).getX(), missiles.get(i).getY()));
 				missiles.remove(i);
-				drawCount += 10000;
+				drawCount += 6000;
 				i--;
 			}
 
