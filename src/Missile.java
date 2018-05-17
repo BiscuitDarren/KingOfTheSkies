@@ -16,7 +16,7 @@ public class Missile extends PMovingImage {
 	public Missile(PImage img, PMovingImage centerGuy, int x, int y) {
 		super(img, x, y, 20, 50, 11);
 		this.centeredTarget = centerGuy;
-		//setMag(0);
+		setMag(5);
 		setDrawCount(0);
 		MAX_dadt = Math.toRadians(2.5);
 	}

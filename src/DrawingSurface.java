@@ -17,10 +17,11 @@ public class DrawingSurface extends PApplet {
 	private ArrayList<Missile> missiles;
 	private ArrayList<Smoke> smokes;
 	private int drawCount = 0;
-	private PImage cloud;
+	private PImage cloud, missileImg;
 
 	public DrawingSurface() {
 		runSketch();
+		missileImg = loadImage("missile.png");
 	}
 
 	// The statements in the setup() function
@@ -34,8 +35,8 @@ public class DrawingSurface extends PApplet {
 		missiles = new ArrayList<Missile>();
 		smokes = new ArrayList<Smoke>();
 		player = new Player(this, 540, 540);
-		missiles.add(new Missile(loadImage("missile.png"), player, 400, 700));
-		missiles.add(new Missile(loadImage("missile.png"), player, 200, 400));
+		
+		missiles.add(new Missile(missileImg, player, 100,100));
 		drawCount = 0;
 		cloud = loadImage("cloudBackground.png");
 
@@ -44,7 +45,7 @@ public class DrawingSurface extends PApplet {
 	public void draw() {
 
 		background(255);
-		//image(cloud, 0, 0, width * 2, height *2);
+		// image(cloud, 0, 0, width * 2, height *2);
 		scale((float) width / 920, (float) height / 920);
 
 		// DRAWING SMOKE
@@ -104,25 +105,37 @@ public class DrawingSurface extends PApplet {
 		// drawScope();
 		drawScore(100);
 		drawCount++;
-		
+
 		spawnMissiles();
 	}
 
 	private void spawnMissiles() {
-		if(frameCount % 300 == 0) {
+		if (frameCount % 300 == 0) {
 			int seconds = frameCount / 60;
-			int missilesToSpawn = (int)(seconds /5 * 1.5) ;
-			for(int i = 0;i< missilesToSpawn; i++){
-				int rand = random(10);
-				
-				if(rand >= 5){int
-					x = random(width);}
-					
-				
-				
+			int missilesToSpawn = (int) (seconds / 5 * 1.5);
+			if (missilesToSpawn > 20)
+				missilesToSpawn = 20;
+			for (int i = 0; i < missilesToSpawn; i++) {
+				int rand = (int) random(10);
+				int x, y;
+				if (rand >= 5) {
+					x = player.getX() + (int) random(-width , width);
+					rand = (int) random(10);
+					if (rand >= 5)
+						y = player.getY() - height ;
+					else
+						y = player.getY() + height ;
+				} else {
+					y = player.getY() + (int) random(-height, height);
+					rand = (int) random(10);
+					if (rand >= 5)
+						x = player.getX() - width;
+					else
+						x = player.getX() + width ;
+				}
+				missiles.add(new Missile(missileImg, player, x, y));
 			}
-			
-			
+
 		}
 	}
 
@@ -131,11 +144,9 @@ public class DrawingSurface extends PApplet {
 		noFill();
 		strokeWeight(1000);
 		stroke(0);
-		ellipse(widt
-			h / 2, height / 2, 1750, 1750);
+		ellipse(width / 2, height / 2, 1750, 1750);
 		popStyle();
 	}
-	
 
 	private void drawScore(int alpha) {
 		pushStyle();
