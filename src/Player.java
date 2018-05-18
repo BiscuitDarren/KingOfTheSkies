@@ -35,7 +35,7 @@ public class Player extends PMovingImage {
 
 	public void draw(PApplet p) {
 		p.pushMatrix();
-		p.translate(p.width / 2, p.height / 2);
+		p.translate(460, 460);
 		p.rotate((float) getAngle() + p.PI / 2);
 		p.image(super.getImage(), 0, 0, (float) getWidth(), (float) getHeight());
 		p.popMatrix();
@@ -55,14 +55,14 @@ public class Player extends PMovingImage {
 	}
 
 	public void loseLife() {
-		if(health.size() > 0)
-		health.remove(health.size() - 1);
+		if (health.size() > 0)
+			health.remove(health.size() - 1);
 	}
 
 	public void addLife(PApplet p) {
 		if (health.size() != 3) {
 			int mod = health.size() % 3;
-			health.add(new Life(50 + 70 * mod, 50,p));
+			health.add(new Life(50 + 70 * mod, 50, p));
 
 		}
 	}

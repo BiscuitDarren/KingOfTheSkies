@@ -18,15 +18,16 @@ public class DrawingSurface extends PApplet {
 	private ArrayList<Missile> missiles;
 	private ArrayList<Smoke> smokes;
 	private int score = 0;
-	private PImage missileImg, frontBackground;
+	private PImage missileImg, restartButton, frontBackground;
 	private Gif gameOverImg;
-	private int gameMode;
+	private int gameMode, highScore;
 	private boolean gameOver;
 
 	public DrawingSurface() {
 		runSketch();
 		missileImg = loadImage("missile.png");
 		frontBackground = loadImage("front.png");
+		restartButton = loadImage("restartButton.png");
 		gameOverImg = new Gif(this, "gameOver.gif");
 		gameOver = false;
 		gameMode = 0;
@@ -56,6 +57,8 @@ public class DrawingSurface extends PApplet {
 				gameOver = true;
 				explodeAll();
 				gameOverImg.play();
+				if (score > highScore)
+					highScore = score;
 			}
 
 			drawPlayer();
@@ -77,10 +80,42 @@ public class DrawingSurface extends PApplet {
 			drawLives();
 			spawnMissiles();
 			grayScaleScreen();
+
 			drawGameOver();
+			if (mousePressed && dist(mouseX, mouseY, 450, 500) < 125 / 2)
+				drawRestart(2);
+			else if (dist(mouseX, mouseY, 450, 500) < 125 / 2)
+				drawRestart(1);
+			else
+				drawRestart(0);
 
 		}
 
+	}
+
+	public void mouseReleased() {
+		if (dist(mouseX, mouseY, 450, 500) < 125 / 2)
+			reset();
+	}
+
+	private void drawRestart(int mode) {
+		if (gameOver) {
+			pushStyle();
+			strokeWeight(7);
+			if (mode == 0) {
+				stroke(51, 204, 255);
+				fill(204, 255, 255);
+			} else if (mode == 1) {
+				stroke(51, 102, 255);
+				fill(51, 153, 255);
+			} else if (mode == 2) {
+				stroke(255, 204, 0);
+				fill(255, 255, 102);
+			}
+			ellipse(460, 500, 125, 125);
+			image(restartButton, 460, 500, 100, 100);
+			popStyle();
+		}
 	}
 
 	private void grayScaleScreen() {
@@ -112,7 +147,7 @@ public class DrawingSurface extends PApplet {
 	}
 
 	private void drawGameOver() {
-		image(gameOverImg, 450,300, 700, 125);
+		image(gameOverImg, 450, 300, 700, 125);
 	}
 
 	private void spawnMissiles() {
@@ -217,6 +252,18 @@ public class DrawingSurface extends PApplet {
 		fill(0, 102, 153, alpha);
 		text(score / 60, 75, 125);
 		popStyle();
+	}
+
+	public void reset() {
+		player.resetLife(this);
+		score = 0;
+		frameCount = 0;
+		gameOver = false;
+
+		missiles = new ArrayList<Missile>();
+		smokes = new ArrayList<Smoke>();
+		player = new Player(this, 540, 540);
+		missiles.add(new Missile(missileImg, player, 100, 100));
 	}
 
 }

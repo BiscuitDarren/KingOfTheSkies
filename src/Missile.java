@@ -27,7 +27,7 @@ public class Missile extends PMovingImage {
 		p.pushMatrix();
 		double xDif = getX() - centeredTarget.getX();
 		double yDif = getY() - centeredTarget.getY();
-		p.translate((float) (p.width / 2 + xDif), (float) (p.height / 2 + yDif));
+		p.translate((float) (460 + xDif), (float) (460 + yDif));
 		p.rotate((float) getAngle() + p.PI / 2);
 		p.image(super.getImage(), 0, 0, (float) getWidth(), (float) getHeight());
 		p.popMatrix();
