@@ -80,40 +80,46 @@ public class DrawingSurface extends PApplet {
 			drawLives();
 			spawnMissiles();
 			grayScaleScreen();
-
+			drawHighScore();
+			drawRestart();
 			drawGameOver();
-			if (mousePressed && dist(mouseX, mouseY, 450, 500) < 125 / 2)
-				drawRestart(2);
-			else if (dist(mouseX, mouseY, 450, 500) < 125 / 2)
-				drawRestart(1);
-			else
-				drawRestart(0);
 
 		}
 
 	}
 
+	private void drawHighScore() {
+		int alpha = 100;
+		pushStyle();
+		textSize(75);
+		fill(0, 102, 153, alpha);
+		textAlign(CENTER);
+		text("High Score: " + highScore / 60, 460, 460);
+		popStyle();
+	}
+
 	public void mouseReleased() {
-		if (dist(mouseX, mouseY, 450, 500) < 125 / 2)
+		if (dist(mouseX, mouseY, 450, 600) < 125 / 2 && gameOver)
 			reset();
 	}
 
-	private void drawRestart(int mode) {
+	private void drawRestart() {
 		if (gameOver) {
 			pushStyle();
 			strokeWeight(7);
-			if (mode == 0) {
-				stroke(51, 204, 255);
-				fill(204, 255, 255);
-			} else if (mode == 1) {
-				stroke(51, 102, 255);
-				fill(51, 153, 255);
-			} else if (mode == 2) {
+			if (mousePressed && dist(mouseX, mouseY, 450, 600) < 125 / 2) {
 				stroke(255, 204, 0);
 				fill(255, 255, 102);
+			} else if (dist(mouseX, mouseY, 450, 600) < 125 / 2) {
+				stroke(51, 102, 255);
+				fill(51, 153, 255);
+			} else {
+				stroke(51, 204, 255);
+				fill(204, 255, 255);
 			}
-			ellipse(460, 500, 125, 125);
-			image(restartButton, 460, 500, 100, 100);
+
+			ellipse(460, 600, 125, 125);
+			image(restartButton, 460, 600, 100, 100);
 			popStyle();
 		}
 	}
@@ -147,7 +153,7 @@ public class DrawingSurface extends PApplet {
 	}
 
 	private void drawGameOver() {
-		image(gameOverImg, 450, 300, 700, 125);
+		image(gameOverImg, 450, 250, 700, 125);
 	}
 
 	private void spawnMissiles() {
