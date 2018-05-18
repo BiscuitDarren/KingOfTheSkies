@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.ArrayList;
 
 import gifAnimation.Gif;
@@ -9,7 +10,7 @@ import processing.core.PImage;
  * and has all of the PMovingImages such as Player, Missile and Smoke as fields.
  * This class draws everything and sets up the window.
  * 
- * @author Darren Biskup & Eshan Jain
+ * @author Darren Biskup
  *
  */
 public class DrawingSurface extends PApplet {
@@ -17,13 +18,16 @@ public class DrawingSurface extends PApplet {
 	private ArrayList<Missile> missiles;
 	private ArrayList<Smoke> smokes;
 	private int score = 0;
-	private PImage missileImg;
+	private PImage missileImg, frontBackground;
+	private Gif gameOverImg;
 	private int gameMode;
 	private boolean gameOver;
 
 	public DrawingSurface() {
 		runSketch();
 		missileImg = loadImage("missile.png");
+		frontBackground = loadImage("front.png");
+		gameOverImg = new Gif(this, "gameOver.gif");
 		gameOver = false;
 		gameMode = 0;
 		score = 0;
@@ -33,9 +37,8 @@ public class DrawingSurface extends PApplet {
 	// execute once when the program begins
 	public void setup() {
 		frameRate(60);
-		background(255);
+		background(255, 5);
 		imageMode(CENTER);
-		// noCursor();
 		cursor(CROSS);
 
 		missiles = new ArrayList<Missile>();
@@ -49,22 +52,50 @@ public class DrawingSurface extends PApplet {
 		background(255);
 		scale((float) width / 920, (float) height / 920);
 		if (!gameOver) {
-			if (player.getHealth().isEmpty())
+			if (player.getHealth().isEmpty()) {
 				gameOver = true;
+				explodeAll();
+				gameOverImg.play();
+			}
 
-			drawSmokes();
 			drawPlayer();
 			processMissiles();
-		}
-		
-		// MISC
-		if (gameMode == 1)
-			drawScope();
-		drawLives();
-		drawScore(100);
-		spawnMissiles();
+			// MISC
+			drawSmokes();
+			if (gameMode == 1)
+				drawScope();
+			drawScore();
+			drawLives();
+			spawnMissiles();
+			score++;
+		} else {
+			// MISC
+			drawSmokes();
+			if (gameMode == 1)
+				drawScope();
+			drawScore();
+			drawLives();
+			spawnMissiles();
+			grayScaleScreen();
+			drawGameOver();
 
-		score++;
+		}
+
+	}
+
+	private void grayScaleScreen() {
+		for (int i = 0; i < height; i++)
+			for (int j = 0; j < width; j++) {
+				Color thisColor = new Color(get(j, i));
+				set(j, i, color(thisColor.getRed(), thisColor.getRed(), thisColor.getRed()));
+			}
+	}
+
+	private void explodeAll() {
+		for (int i = missiles.size() - 1; i >= 0; i--) {
+			Missile m = missiles.remove(i);
+			smokes.add(new Explosion(this, player, m.getX(), m.getY()));
+		}
 	}
 
 	private void drawLives() {
@@ -81,7 +112,7 @@ public class DrawingSurface extends PApplet {
 	}
 
 	private void drawGameOver() {
-
+		image(gameOverImg, 450,300, 700, 125);
 	}
 
 	private void spawnMissiles() {
@@ -135,7 +166,6 @@ public class DrawingSurface extends PApplet {
 		}
 	}
 
-	
 	private void processMissiles() {
 		for (int i = 0; i < missiles.size(); i++) {
 			if (missiles.get(i).getDrawCount() < 600) {
@@ -150,6 +180,7 @@ public class DrawingSurface extends PApplet {
 					player.loseLife();
 					smokes.add(new Explosion(this, player, player.getX(), player.getY()));
 					i--;
+					score += 6000;
 					continue;
 				}
 
@@ -176,7 +207,10 @@ public class DrawingSurface extends PApplet {
 		}
 	}
 
-	private void drawScore(int alpha) {
+	private void drawScore() {
+		int alpha = 100;
+		if (gameMode == 1)
+			alpha = 10000;
 		pushStyle();
 		// textFont(loadFont());
 		textSize(50);
