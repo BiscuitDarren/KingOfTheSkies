@@ -35,8 +35,8 @@ public class DrawingSurface extends PApplet {
 		missiles = new ArrayList<Missile>();
 		smokes = new ArrayList<Smoke>();
 		player = new Player(this, 540, 540);
-		
-		missiles.add(new Missile(missileImg, player, 100,100));
+
+		missiles.add(new Missile(missileImg, player, 100, 100));
 		drawCount = 0;
 		cloud = loadImage("cloudBackground.png");
 
@@ -48,16 +48,7 @@ public class DrawingSurface extends PApplet {
 		// image(cloud, 0, 0, width * 2, height *2);
 		scale((float) width / 920, (float) height / 920);
 
-		// DRAWING SMOKE
-		for (int i = 0; i < smokes.size(); i++) {
-			if (smokes.size() > 0)
-				smokes.get(i).draw(this);
-			if (!smokes.get(i).isPlaying()) {
-				smokes.remove(i);
-				i--;
-			}
-
-		}
+		drawSmokes();
 
 		// DRAWING MISSILES
 		for (int i = 0; i < missiles.size(); i++) {
@@ -68,9 +59,16 @@ public class DrawingSurface extends PApplet {
 					smokes.add(new Smoke(this, player, missiles.get(i).getX(), missiles.get(i).getY()));
 
 				// testing Collisions
+				if (player.collidesWith(missiles.get(i))) {
+					missiles.remove(i);
+					player.loseLife();
+					smokes.add(new Explosion(this, player, player.getX(), player.getY()));
+					i--;
+					continue;
+				}
 
 				for (int c = i + 1; c < missiles.size(); c++) {
-					if (missiles.get(i).collidesWith(missiles.get(c))) {
+					if (missiles.size() > 0 && missiles.get(i).collidesWith(missiles.get(c))) {
 						smokes.add(new Explosion(this, player, missiles.get(c).getX(), missiles.get(c).getY()));
 						smokes.add(new Explosion(this, player, missiles.get(i).getX(), missiles.get(i).getY()));
 
@@ -82,7 +80,7 @@ public class DrawingSurface extends PApplet {
 						break;
 					}
 				}
-			} else {
+			} else {//missile ran out of fuel
 				smokes.add(new Explosion(this, player, missiles.get(i).getX(), missiles.get(i).getY()));
 				missiles.remove(i);
 				drawCount += 6000;
@@ -92,6 +90,7 @@ public class DrawingSurface extends PApplet {
 		}
 
 		// DRAWING PLAYER
+
 		player.turnToward(this, pmouseX, pmouseY);
 		player.act();
 		player.draw(this);
@@ -119,19 +118,19 @@ public class DrawingSurface extends PApplet {
 				int rand = (int) random(10);
 				int x, y;
 				if (rand >= 5) {
-					x = player.getX() + (int) random(-width , width);
+					x = player.getX() + (int) random(-width, width);
 					rand = (int) random(10);
 					if (rand >= 5)
-						y = player.getY() - height ;
+						y = player.getY() - height;
 					else
-						y = player.getY() + height ;
+						y = player.getY() + height;
 				} else {
 					y = player.getY() + (int) random(-height, height);
 					rand = (int) random(10);
 					if (rand >= 5)
 						x = player.getX() - width;
 					else
-						x = player.getX() + width ;
+						x = player.getX() + width;
 				}
 				missiles.add(new Missile(missileImg, player, x, y));
 			}
@@ -148,12 +147,24 @@ public class DrawingSurface extends PApplet {
 		popStyle();
 	}
 
+	private void drawSmokes() {
+		for (int i = 0; i < smokes.size(); i++) {
+			if (smokes.size() > 0)
+				smokes.get(i).draw(this);
+			if (!smokes.get(i).isPlaying()) {
+				smokes.remove(i);
+				i--;
+			}
+
+		}
+	}
+
 	private void drawScore(int alpha) {
 		pushStyle();
 		// textFont(loadFont());
 		textSize(50);
 		fill(0, 102, 153, alpha);
-		text(drawCount / 60, 50, 100);
+		text(drawCount / 60, 75, 125);
 		popStyle();
 	}
 
