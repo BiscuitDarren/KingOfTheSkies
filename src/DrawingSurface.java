@@ -16,12 +16,17 @@ public class DrawingSurface extends PApplet {
 	private Player player;
 	private ArrayList<Missile> missiles;
 	private ArrayList<Smoke> smokes;
-	private int drawCount = 0;
-	private PImage cloud, missileImg;
+	private int score = 0;
+	private PImage missileImg;
+	private int gameMode;
+	private boolean gameOver;
 
 	public DrawingSurface() {
 		runSketch();
 		missileImg = loadImage("missile.png");
+		gameOver = false;
+		gameMode = 0;
+		score = 0;
 	}
 
 	// The statements in the setup() function
@@ -32,80 +37,51 @@ public class DrawingSurface extends PApplet {
 		imageMode(CENTER);
 		// noCursor();
 		cursor(CROSS);
+
 		missiles = new ArrayList<Missile>();
 		smokes = new ArrayList<Smoke>();
 		player = new Player(this, 540, 540);
-
 		missiles.add(new Missile(missileImg, player, 100, 100));
-		drawCount = 0;
-		cloud = loadImage("cloudBackground.png");
 
 	}
 
 	public void draw() {
-
 		background(255);
-		// image(cloud, 0, 0, width * 2, height *2);
 		scale((float) width / 920, (float) height / 920);
+		if (!gameOver) {
+			if (player.getHealth().isEmpty())
+				gameOver = true;
 
-		drawSmokes();
-
-		// DRAWING MISSILES
-		for (int i = 0; i < missiles.size(); i++) {
-			if (missiles.get(i).getDrawCount() < 600) {
-				missiles.get(i).act();
-				missiles.get(i).draw(this);
-				if (frameCount % 5 == 0)
-					smokes.add(new Smoke(this, player, missiles.get(i).getX(), missiles.get(i).getY()));
-
-				// testing Collisions
-				if (player.collidesWith(missiles.get(i))) {
-					missiles.remove(i);
-					player.loseLife();
-					smokes.add(new Explosion(this, player, player.getX(), player.getY()));
-					i--;
-					continue;
-				}
-
-				for (int c = i + 1; c < missiles.size(); c++) {
-					if (missiles.size() > 0 && missiles.get(i).collidesWith(missiles.get(c))) {
-						smokes.add(new Explosion(this, player, missiles.get(c).getX(), missiles.get(c).getY()));
-						smokes.add(new Explosion(this, player, missiles.get(i).getX(), missiles.get(i).getY()));
-
-						missiles.remove(c);
-						missiles.remove(i);
-						i--;
-						c--;
-						drawCount += 12000;
-						break;
-					}
-				}
-			} else {//missile ran out of fuel
-				smokes.add(new Explosion(this, player, missiles.get(i).getX(), missiles.get(i).getY()));
-				missiles.remove(i);
-				drawCount += 6000;
-				i--;
-			}
-
+			drawSmokes();
+			drawPlayer();
+			processMissiles();
 		}
+		
+		// MISC
+		if (gameMode == 1)
+			drawScope();
+		drawLives();
+		drawScore(100);
+		spawnMissiles();
 
-		// DRAWING PLAYER
+		score++;
+	}
 
+	private void drawLives() {
+		for (Life l : player.getHealth()) {
+			l.draw(this);
+		}
+	}
+
+	private void drawPlayer() {
 		player.turnToward(this, pmouseX, pmouseY);
 		player.act();
 		player.draw(this);
 
-		// DRAWING LIVES
-		for (Life l : player.getHealth()) {
-			l.draw(this);
-		}
+	}
 
-		// MISC
-		// drawScope();
-		drawScore(100);
-		drawCount++;
+	private void drawGameOver() {
 
-		spawnMissiles();
 	}
 
 	private void spawnMissiles() {
@@ -159,12 +135,53 @@ public class DrawingSurface extends PApplet {
 		}
 	}
 
+	
+	private void processMissiles() {
+		for (int i = 0; i < missiles.size(); i++) {
+			if (missiles.get(i).getDrawCount() < 600) {
+				missiles.get(i).act();
+				missiles.get(i).draw(this);
+				if (frameCount % 5 == 0)
+					smokes.add(new Smoke(this, player, missiles.get(i).getX(), missiles.get(i).getY()));
+
+				// testing Collisions
+				if (player.collidesWith(missiles.get(i))) {
+					missiles.remove(i);
+					player.loseLife();
+					smokes.add(new Explosion(this, player, player.getX(), player.getY()));
+					i--;
+					continue;
+				}
+
+				for (int c = i + 1; c < missiles.size(); c++) {
+					if (missiles.size() > 0 && missiles.get(i).collidesWith(missiles.get(c))) {
+						smokes.add(new Explosion(this, player, missiles.get(c).getX(), missiles.get(c).getY()));
+						smokes.add(new Explosion(this, player, missiles.get(i).getX(), missiles.get(i).getY()));
+
+						missiles.remove(c);
+						missiles.remove(i);
+						i--;
+						c--;
+						score += 12000;
+						break;
+					}
+				}
+			} else {// missile ran out of fuel
+				smokes.add(new Explosion(this, player, missiles.get(i).getX(), missiles.get(i).getY()));
+				missiles.remove(i);
+				score += 6000;
+				i--;
+			}
+
+		}
+	}
+
 	private void drawScore(int alpha) {
 		pushStyle();
 		// textFont(loadFont());
 		textSize(50);
 		fill(0, 102, 153, alpha);
-		text(drawCount / 60, 75, 125);
+		text(score / 60, 75, 125);
 		popStyle();
 	}
 
