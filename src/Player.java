@@ -17,7 +17,7 @@ public class Player extends PMovingImage {
 
 	public Player(PApplet p, int x, int y) {
 		super(p.loadImage("redBaron.png"), x, y, 75, 75, 10);
-
+		setBounds(10,75);
 		health = new ArrayList<Life>();
 		resetLife(p);
 	}

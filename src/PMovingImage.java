@@ -140,6 +140,9 @@ public abstract class PMovingImage {
 	public Rectangle2D getBoundingRect() {
 		return boundingRect;
 	}
+	public void setBounds(int w, int h) {
+		boundingRect.setFrame(x,y,w,h);
+	}
 
 	public abstract void turnToward(int x, int y);
 
