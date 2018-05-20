@@ -50,7 +50,6 @@ public class Missile extends PMovingImage {
 			targetAngle += Math.PI;
 
 		double angleDiff = targetAngle - getAngle();
-		// pAngle = getAngle();
 
 		if (Math.abs(angleDiff) > MAX_dadt)
 			setAngle(getAngle() + Math.signum(angleDiff) * MAX_dadt);

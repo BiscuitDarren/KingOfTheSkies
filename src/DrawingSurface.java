@@ -62,9 +62,10 @@ public class DrawingSurface extends PApplet {
 			}
 
 			drawPlayer();
+			drawSmokes();
 			processMissiles();
 			// MISC
-			drawSmokes();
+			
 			if (gameMode == 1)
 				drawScope();
 			drawScore();
@@ -107,12 +108,15 @@ public class DrawingSurface extends PApplet {
 		if (gameOver) {
 			pushStyle();
 			strokeWeight(7);
-			if (mousePressed && dist(mouseX, mouseY, 450, 600) < 125 / 2) {
+			int x =(int) (mouseX / (width/920.0));
+			int y =(int) (mouseY / (height/920.0));
+
+			if (mousePressed && dist(x, y, 450, 600) < 125 / 2) {
 				stroke(255, 204, 0);
 				fill(255, 255, 102);
-			} else if (dist(mouseX, mouseY, 450, 600) < 125 / 2) {
-				stroke(51, 102, 255);
-				fill(51, 153, 255);
+			} else if (dist(x, y, 450, 600) < 125 / 2) {
+				stroke(51, 150, 200);
+				fill(150, 200, 225);
 			} else {
 				stroke(51, 204, 255);
 				fill(204, 255, 255);
@@ -125,8 +129,8 @@ public class DrawingSurface extends PApplet {
 	}
 
 	private void grayScaleScreen() {
-		for (int i = 0; i < height; i++)
-			for (int j = 0; j < width; j++) {
+		for (int i = 0; i < 460; i++)
+			for (int j = 0; j < 460; j++) {
 				Color thisColor = new Color(get(j, i));
 				set(j, i, color(thisColor.getRed(), thisColor.getRed(), thisColor.getRed()));
 			}
@@ -157,7 +161,7 @@ public class DrawingSurface extends PApplet {
 	}
 
 	private void spawnMissiles() {
-		if (frameCount % 300 == 0) {
+		if (frameCount % 300 == 0 || missiles.size() <= 1) {
 			int seconds = frameCount / 60;
 			int missilesToSpawn = (int) (seconds / 5 * 1.25);
 			if (missilesToSpawn > 20)
