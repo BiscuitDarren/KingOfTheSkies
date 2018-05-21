@@ -14,7 +14,12 @@ public class Missile extends PMovingImage {
 	private final double MAX_dadt;
 
 	public Missile(PImage img, PMovingImage centerGuy, int x, int y) {
-		super(img, x, y, 15, 40, 11);
+		this(img, centerGuy, x, y, 15, 40, 11);
+
+	}
+
+	public Missile(PImage img, PMovingImage centerGuy, int x, int y, int w, int h, int speed) {
+		super(img, x, y, w, h, speed);
 		this.centeredTarget = centerGuy;
 		setMag(5);
 		// setMag(0);

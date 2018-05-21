@@ -70,15 +70,14 @@ public class DrawingSurface extends PApplet {
 
 			if (gameMode == 1)
 				drawScope();
-			drawScore();
 			drawLives();
+			drawScore();
 			spawnMissiles();
 			score++;
 		} else {
 			// MISC
 			drawSmokes();
 			drawScore();
-			drawLives();
 			try {
 				filter(GRAY);
 			} catch (ArrayIndexOutOfBoundsException e) {
