@@ -20,6 +20,7 @@ public class DrawingSurface extends PApplet {
 	private ArrayList<Smoke> smokes;
 	private int score = 0;
 	private PImage missileImg, restartButton, frontBackground;
+	private BackgroundList front;
 	private Gif gameOverImg;
 	private int gameMode, highScore;
 	private boolean gameOver;
@@ -42,17 +43,17 @@ public class DrawingSurface extends PApplet {
 		frameRate(60);
 		imageMode(CENTER);
 		cursor(CROSS);
-
 		missiles = new ArrayList<Missile>();
 		smokes = new ArrayList<Smoke>();
 		player = new Player(this, 540, 540);
 		missiles.add(new Missile(missileImg, player, 100, 100));
-
+		front = new BackgroundList(frontBackground, player, 2);
 	}
 
 	public void draw() {
-		background(150, 175, 255);
 		scale((float) width / 920, (float) height / 920);
+		background(150, 175, 255);
+		//front.draw(this);
 		if (!gameOver) {
 			if (player.getHealth().isEmpty()) {
 				gameOver = true;
@@ -67,7 +68,6 @@ public class DrawingSurface extends PApplet {
 			processMissiles();
 			// MISC
 
-			
 			if (gameMode == 1)
 				drawScope();
 			drawScore();
@@ -80,8 +80,8 @@ public class DrawingSurface extends PApplet {
 			drawScore();
 			drawLives();
 			try {
-			filter(GRAY);
-			}catch(ArrayIndexOutOfBoundsException e) {
+				filter(GRAY);
+			} catch (ArrayIndexOutOfBoundsException e) {
 				return;
 			}
 			drawHighScore();
@@ -161,7 +161,6 @@ public class DrawingSurface extends PApplet {
 
 	}
 
-
 	private void explodeAll() {
 		for (int i = missiles.size() - 1; i >= 0; i--) {
 			Missile m = missiles.remove(i);
@@ -221,7 +220,7 @@ public class DrawingSurface extends PApplet {
 		noFill();
 		strokeWeight(1000);
 		stroke(0);
-		ellipse(460,460, 1750, 1750);
+		ellipse(460, 460, 1750, 1750);
 		popStyle();
 	}
 
