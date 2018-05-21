@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import gifAnimation.Gif;
@@ -32,6 +33,7 @@ public class DrawingSurface extends PApplet {
 		gameOver = false;
 		gameMode = 0;
 		score = 0;
+
 	}
 
 	// The statements in the setup() function
@@ -65,7 +67,7 @@ public class DrawingSurface extends PApplet {
 			drawSmokes();
 			processMissiles();
 			// MISC
-			
+
 			if (gameMode == 1)
 				drawScope();
 			drawScore();
@@ -79,14 +81,38 @@ public class DrawingSurface extends PApplet {
 				drawScope();
 			drawScore();
 			drawLives();
-			spawnMissiles();
-			grayScaleScreen();
 			drawHighScore();
 			drawRestart();
+			drawMenuButton();
 			drawGameOver();
 
 		}
 
+	}
+
+	private void drawMenuButton() {
+		pushStyle();
+		strokeWeight(7);
+		int x = (int) (mouseX / (width / 920.0));
+		int y = (int) (mouseY / (height / 920.0));
+
+		if (mousePressed && x < 610 && x > 310 && y < 837 && y > 738) {
+			stroke(255, 204, 0);
+			fill(255, 255, 102);
+		} else if (x < 610 && x > 310 && y < 837 && y > 738) {
+			stroke(51, 150, 200);
+			fill(150, 200, 225);
+		} else {
+			stroke(51, 204, 255);
+			fill(204, 255, 255);
+		}
+		rectMode(CENTER);
+		rect(460, 787, 300, 100, 25, 25, 25, 25);
+		textAlign(CENTER);
+		fill(0);
+		stroke(0);
+		text("MAIN MENU", 460, 800);
+		popStyle();
 	}
 
 	private void drawHighScore() {
@@ -100,32 +126,36 @@ public class DrawingSurface extends PApplet {
 	}
 
 	public void mouseReleased() {
-		if (dist(mouseX, mouseY, 450, 600) < 125 / 2 && gameOver)
+		int x = (int) (mouseX / (width / 920.0));
+		int y = (int) (mouseY / (height / 920.0));
+		if (dist(x, y, 450, 600) < 125 / 2 && gameOver) // restart button
 			reset();
+		if(x < 610 && x > 310 && y < 837 && y > 738) {//main menu button
+			
+		}
 	}
 
 	private void drawRestart() {
-		if (gameOver) {
-			pushStyle();
-			strokeWeight(7);
-			int x =(int) (mouseX / (width/920.0));
-			int y =(int) (mouseY / (height/920.0));
+		pushStyle();
+		strokeWeight(7);
+		int x = (int) (mouseX / (width / 920.0));
+		int y = (int) (mouseY / (height / 920.0));
 
-			if (mousePressed && dist(x, y, 450, 600) < 125 / 2) {
-				stroke(255, 204, 0);
-				fill(255, 255, 102);
-			} else if (dist(x, y, 450, 600) < 125 / 2) {
-				stroke(51, 150, 200);
-				fill(150, 200, 225);
-			} else {
-				stroke(51, 204, 255);
-				fill(204, 255, 255);
-			}
-
-			ellipse(460, 600, 125, 125);
-			image(restartButton, 460, 600, 100, 100);
-			popStyle();
+		if (mousePressed && dist(x, y, 450, 600) < 125 / 2) {
+			stroke(255, 204, 0);
+			fill(255, 255, 102);
+		} else if (dist(x, y, 450, 600) < 125 / 2) {
+			stroke(51, 150, 200);
+			fill(150, 200, 225);
+		} else {
+			stroke(51, 204, 255);
+			fill(204, 255, 255);
 		}
+
+		ellipse(460, 600, 125, 125);
+		image(restartButton, 460, 600, 100, 100);
+		popStyle();
+
 	}
 
 	private void grayScaleScreen() {
@@ -161,9 +191,9 @@ public class DrawingSurface extends PApplet {
 	}
 
 	private void spawnMissiles() {
-		if (frameCount % 300 == 0 || missiles.size() <= 1) {
+		if ((frameCount % 300 == 0 || missiles.size() <= 1) && frameRate > 50) {
 			int seconds = frameCount / 60;
-			int missilesToSpawn = (int) (seconds / 5 * 1.25);
+			int missilesToSpawn = (int) (seconds / 5.0 * 1.25);
 			if (missilesToSpawn > 20)
 				missilesToSpawn = 20;
 			for (int i = 0; i < missilesToSpawn; i++) {
