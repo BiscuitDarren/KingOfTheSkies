@@ -40,7 +40,6 @@ public class DrawingSurface extends PApplet {
 	// execute once when the program begins
 	public void setup() {
 		frameRate(60);
-		background(255, 5);
 		imageMode(CENTER);
 		cursor(CROSS);
 
@@ -52,7 +51,7 @@ public class DrawingSurface extends PApplet {
 	}
 
 	public void draw() {
-		background(255);
+		background(150, 175, 255);
 		scale((float) width / 920, (float) height / 920);
 		if (!gameOver) {
 			if (player.getHealth().isEmpty()) {
@@ -77,10 +76,13 @@ public class DrawingSurface extends PApplet {
 		} else {
 			// MISC
 			drawSmokes();
-			if (gameMode == 1)
-				drawScope();
 			drawScore();
 			drawLives();
+			try {
+			filter(GRAY);
+			}catch(ArrayIndexOutOfBoundsException e) {
+				return;
+			}
 			drawHighScore();
 			drawRestart();
 			drawMenuButton();
@@ -97,14 +99,14 @@ public class DrawingSurface extends PApplet {
 		int y = (int) (mouseY / (height / 920.0));
 
 		if (mousePressed && x < 610 && x > 310 && y < 837 && y > 738) {
-			stroke(255, 204, 0);
-			fill(255, 255, 102);
+			stroke(255, 204, 0, 100);
+			fill(255, 255, 102, 100);
 		} else if (x < 610 && x > 310 && y < 837 && y > 738) {
-			stroke(51, 150, 200);
-			fill(150, 200, 225);
+			stroke(51, 150, 200, 100);
+			fill(150, 200, 225, 100);
 		} else {
-			stroke(51, 204, 255);
-			fill(204, 255, 255);
+			stroke(51, 204, 255, 100);
+			fill(204, 255, 255, 100);
 		}
 		rectMode(CENTER);
 		rect(460, 787, 300, 100, 25, 25, 25, 25);
@@ -130,8 +132,8 @@ public class DrawingSurface extends PApplet {
 		int y = (int) (mouseY / (height / 920.0));
 		if (dist(x, y, 450, 600) < 125 / 2 && gameOver) // restart button
 			reset();
-		if(x < 610 && x > 310 && y < 837 && y > 738) {//main menu button
-			
+		if (x < 610 && x > 310 && y < 837 && y > 738) {// main menu button
+
 		}
 	}
 
@@ -142,14 +144,14 @@ public class DrawingSurface extends PApplet {
 		int y = (int) (mouseY / (height / 920.0));
 
 		if (mousePressed && dist(x, y, 450, 600) < 125 / 2) {
-			stroke(255, 204, 0);
-			fill(255, 255, 102);
+			stroke(255, 204, 0, 100);
+			fill(255, 255, 102, 100);
 		} else if (dist(x, y, 450, 600) < 125 / 2) {
-			stroke(51, 150, 200);
-			fill(150, 200, 225);
+			stroke(51, 150, 200, 100);
+			fill(150, 200, 225, 100);
 		} else {
-			stroke(51, 204, 255);
-			fill(204, 255, 255);
+			stroke(51, 204, 255, 100);
+			fill(204, 255, 255, 100);
 		}
 
 		ellipse(460, 600, 125, 125);
@@ -158,13 +160,6 @@ public class DrawingSurface extends PApplet {
 
 	}
 
-	private void grayScaleScreen() {
-		for (int i = 0; i < 460; i++)
-			for (int j = 0; j < 460; j++) {
-				Color thisColor = new Color(get(j, i));
-				set(j, i, color(thisColor.getRed(), thisColor.getRed(), thisColor.getRed()));
-			}
-	}
 
 	private void explodeAll() {
 		for (int i = missiles.size() - 1; i >= 0; i--) {
@@ -225,7 +220,7 @@ public class DrawingSurface extends PApplet {
 		noFill();
 		strokeWeight(1000);
 		stroke(0);
-		ellipse(width / 2, height / 2, 1750, 1750);
+		ellipse(460,460, 1750, 1750);
 		popStyle();
 	}
 
@@ -289,7 +284,8 @@ public class DrawingSurface extends PApplet {
 		pushStyle();
 		// textFont(loadFont());
 		textSize(50);
-		fill(0, 102, 153, alpha);
+		stroke(0);
+		fill(0, 75, 125, alpha);
 		text(score / 60, 75, 125);
 		popStyle();
 	}
