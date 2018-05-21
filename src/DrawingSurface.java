@@ -67,6 +67,7 @@ public class DrawingSurface extends PApplet {
 			processMissiles();
 			// MISC
 
+			
 			if (gameMode == 1)
 				drawScope();
 			drawScore();
