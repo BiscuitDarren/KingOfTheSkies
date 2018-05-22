@@ -18,8 +18,9 @@ public class DrawingSurface extends PApplet {
 	private Player player;
 	private ArrayList<Missile> missiles;
 	private ArrayList<Smoke> smokes;
+	private ArrayList<Bullet> bullets;
 	private int score = 0;
-	private PImage missileImg, restartButton, frontBackground;
+	private PImage missileImg, restartButton, frontBackground, bulletImg;
 	private BackgroundList front;
 	private Gif gameOverImg;
 	private int gameMode, highScore;
@@ -30,6 +31,7 @@ public class DrawingSurface extends PApplet {
 		missileImg = loadImage("missile.png");
 		frontBackground = loadImage("front.png");
 		restartButton = loadImage("restartButton.png");
+		bulletImg = loadImage("bullet.png");
 		gameOverImg = new Gif(this, "gameOver.gif");
 		gameOver = false;
 		gameMode = 0;
@@ -45,6 +47,7 @@ public class DrawingSurface extends PApplet {
 		cursor(CROSS);
 		missiles = new ArrayList<Missile>();
 		smokes = new ArrayList<Smoke>();
+		bullets = new ArrayList<Bullet>();
 		player = new Player(this, 540, 540);
 		missiles.add(new Missile(missileImg, player, 100, 100));
 		front = new BackgroundList(frontBackground, player, 2);
@@ -63,6 +66,7 @@ public class DrawingSurface extends PApplet {
 					highScore = score;
 			}
 			drawSmokes();
+			processBullets();
 			drawPlayer();
 			processMissiles();
 			// MISC
@@ -89,6 +93,29 @@ public class DrawingSurface extends PApplet {
 
 		}
 
+	}
+
+	private void processBullets() {
+		for (int i = 0; i < bullets.size(); i++) {
+			bullets.get(i).act();
+			bullets.get(i).draw(this);
+			if (bullets.get(i).getDrawCount() < 180) {
+				for (int j = 0; j < missiles.size(); j++) {
+					if (bullets.size() > 0 && bullets.get(i).collidesWith(missiles.get(j))) {
+						smokes.add(new Explosion(this, player, missiles.get(j).getX(), missiles.get(j).getY()));
+						bullets.remove(i);
+						missiles.remove(j);
+						j--;
+						i--;
+					}
+				}
+			} else {
+				bullets.remove(i);
+				i--;
+				break;
+			}
+
+		}
 	}
 
 	private void drawMenuButton() {
@@ -126,9 +153,19 @@ public class DrawingSurface extends PApplet {
 		popStyle();
 	}
 
+	public void mousePressed() {
+		if (!gameOver) {
+			if (player.getMag() > 4) {
+				player.slowBy(4);
+				bullets.add(new Bullet(bulletImg, player, player.getX(), player.getY(), player.getAngle(), 20));
+			}
+		}
+	}
+
 	public void mouseReleased() {
 		int x = (int) (mouseX / (width / 920.0));
 		int y = (int) (mouseY / (height / 920.0));
+
 		if (dist(x, y, 450, 600) < 125 / 2 && gameOver) // restart button
 			reset();
 		if (x < 610 && x > 310 && y < 837 && y > 738) {// main menu button
@@ -179,10 +216,10 @@ public class DrawingSurface extends PApplet {
 		if (frameCount % 5 == 0) {
 			if (player.getHealth().size() > 2)
 				;
-			else if(player.getHealth().size() > 1)
+			else if (player.getHealth().size() > 1)
 				smokes.add(new Smoke(this, "smoke.gif", player, player.getX(), player.getY(), 50, 50));
 			else
-				smokes.add(new Smoke(this, "smoke.gif", player, player.getX(), player.getY(), 100, 100));
+				smokes.add(new Smoke(this, "smoke.gif", player, player.getX(), player.getY(), 75, 75));
 		}
 	}
 
@@ -260,7 +297,7 @@ public class DrawingSurface extends PApplet {
 				}
 
 				for (int c = i + 1; c < missiles.size(); c++) {
-					if (missiles.size() > 0 && missiles.get(i).collidesWith(missiles.get(c))) {
+					if (missiles.get(i).collidesWith(missiles.get(c))) {
 						smokes.add(new Explosion(this, player, missiles.get(c).getX(), missiles.get(c).getY()));
 						smokes.add(new Explosion(this, player, missiles.get(i).getX(), missiles.get(i).getY()));
 
