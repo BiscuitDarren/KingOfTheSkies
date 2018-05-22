@@ -1,2 +1,13 @@
 /Background.class
 /BackgroundList.class
+/Bullet.class
+/DrawingSurface.class
+/Explosion.class
+/GamePanel.class
+/Life.class
+/Main.class
+/Missile.class
+/OptionPanel.class
+/PMovingImage.class
+/Player.class
+/Smoke.class

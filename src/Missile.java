@@ -41,8 +41,8 @@ public class Missile extends PMovingImage {
 
 	public void act() {
 		setAngle(getAngle() % (Math.PI * 2));
-		if(getAngle()<0)s
-			etAngle(getAngle()+Math.PI * 2;
+		if(getAngle()<0)
+			setAngle(getAngle()+Math.PI * 2);
 		
 		turnToward((int) centeredTarget.getCenterX(), (int) centeredTarget.getCenterY());
 		super.act();
