@@ -177,8 +177,12 @@ public class DrawingSurface extends PApplet {
 		player.act();
 		player.draw(this);
 		if (frameCount % 5 == 0) {
-			if (player.getHealth().size() == 1)
+			if (player.getHealth().size() > 2)
+				;
+			else if(player.getHealth().size() > 1)
 				smokes.add(new Smoke(this, "smoke.gif", player, player.getX(), player.getY(), 50, 50));
+			else
+				smokes.add(new Smoke(this, "smoke.gif", player, player.getX(), player.getY(), 100, 100));
 		}
 	}
 
