@@ -5,8 +5,9 @@ import java.awt.geom.AffineTransform;
 
 /**
  * 
- * @author Eshan Jain. Code taken from Shelby Menu Demo
- *  This makes an option panel that prompts the user with different options. 
+ * @author Eshan Jain. 
+ *  This makes an menu screen that prompts the user with different options, including Play game 
+ *  and a tutorial screen that guides the user on how to play the game. 
  *
  */
 public class OptionPanel extends JPanel implements MouseListener, MouseMotionListener {
@@ -21,26 +22,13 @@ public class OptionPanel extends JPanel implements MouseListener, MouseMotionLis
 	public OptionPanel(Main w) {
 		this.w = w;
 		JPanel p = new JPanel();
-		p.setBackground(new Color(0,0,0,0));  // Panel is transparent
 
 		background = (new ImageIcon("back3.png")).getImage();
 		p.setLayout(new BoxLayout(p,BoxLayout.Y_AXIS));	
 		p.add(Box.createVerticalStrut(300));   // Move down by 300 pixels  
 	    
-		JButton play = new JButton("Play the Game!");
-		JButton tutorial = new JButton("Tutorial");
-		
-		//play.addActionListener(this);
-		//tutorial.addActionListener(this);
-
 		 isPlay = isTut = drawTut = false;
 		 mouseX = mouseY = 0;
-		
-		
-		//p.add(play);
-		//p.add(tutorial);
-		//add(p);
-		
 		
 	}
 	
@@ -83,9 +71,6 @@ public class OptionPanel extends JPanel implements MouseListener, MouseMotionLis
 		    
 			g.fillRect(320, 330, 150, 50);
 		    
-		    
-		   
-
 		    g.setColor(new Color(79, 74, 74));
 			g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 45));
 			g.drawString("King Of the Skies", 170, 200);
@@ -110,9 +95,6 @@ public class OptionPanel extends JPanel implements MouseListener, MouseMotionLis
 	@Override
 	public void mouseClicked(MouseEvent e) {
 	
-		
-		//System.out.println(mouseX + " " + mouseY);
-		
 	}
 
 	@Override
@@ -173,9 +155,6 @@ public class OptionPanel extends JPanel implements MouseListener, MouseMotionLis
 		repaint();
 		
 		}
-		
-		
-
 		
 		
 		
