@@ -167,7 +167,9 @@ public class DrawingSurface extends PApplet {
 		if (dist(x, y, 450, 600) < 125 / 2 && gameOver) // restart button
 			reset();
 		if (x < 610 && x > 310 && y < 837 && y > 738) {// main menu button
-
+			//HERE
+			
+			exit();
 		}
 	}
 

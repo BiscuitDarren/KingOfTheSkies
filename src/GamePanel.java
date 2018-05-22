@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements KeyListener
 		setBackground(Color.WHITE);
 		System.out.println("");
 
-		DrawingSurface s = new DrawingSurface();
+		
 		
 		
 		
@@ -32,6 +32,7 @@ public class GamePanel extends JPanel implements KeyListener
 
 	public void paintComponent(Graphics g)
 	{
+		//DrawingSurface s = new DrawingSurface();
 		super.paintComponent(g);  // Call JPanel's paintComponent method to paint the background
 
 		Graphics2D g2 = (Graphics2D)g;
