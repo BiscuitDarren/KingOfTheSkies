@@ -1,6 +1,8 @@
 import java.awt.CardLayout;
 import java.awt.Dimension;
+import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -9,6 +11,7 @@ import processing.awt.PSurfaceAWT;
 public class Main extends JFrame {
 	
 	private JPanel cardPanel;
+	
 	
 	public Main(String title) {
 		super(title);
@@ -21,20 +24,33 @@ public class Main extends JFrame {
 	    
 		OptionPanel panel1 = new OptionPanel(this);    
 	    GamePanel panel2 = new GamePanel(this);
-	
 	    cardPanel.add(panel1,"1"); // Card is named "1"
 	    cardPanel.add(panel2,"2"); // Card is named "2"
 	    
 	    add(cardPanel);
 	    addKeyListener(panel2);
+	    addMouseListener(panel1);
+	    addMouseMotionListener(panel1);
 	
 	    setVisible(true);
+		
+
 	}
 
 	public static void main(String args[]) {
 		
 		Main w = new Main("AP Animation Demo");
-
+		//DrawingSurface s = new DrawingSurface();
+		
+	}
+	
+	
+	public void changePanel(String name) {
+		((CardLayout)cardPanel.getLayout()).show(cardPanel,name);
+		requestFocus();
+	}
+	/*
+	public void start() {
 		DrawingSurface drawing = new DrawingSurface();
 
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
@@ -49,9 +65,8 @@ public class Main extends JFrame {
 		window.setVisible(true);
 	}
 	
+	*/
 	
-	public void changePanel(String name) {
-		((CardLayout)cardPanel.getLayout()).show(cardPanel,name);
-		requestFocus();
-	}
+	
+	
 }
