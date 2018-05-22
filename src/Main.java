@@ -7,7 +7,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import processing.awt.PSurfaceAWT;
-
+/**
+ * 
+ * @author Eshan Jain
+ * 
+ * Starts the game
+ *
+ */
 public class Main extends JFrame {
 	
 	private JPanel cardPanel;
@@ -49,7 +55,7 @@ public class Main extends JFrame {
 		((CardLayout)cardPanel.getLayout()).show(cardPanel,name);
 		requestFocus();
 	}
-	/*
+	
 	public void start() {
 		DrawingSurface drawing = new DrawingSurface();
 
@@ -65,7 +71,7 @@ public class Main extends JFrame {
 		window.setVisible(true);
 	}
 	
-	*/
+	
 	
 	
 	
