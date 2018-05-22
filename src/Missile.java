@@ -44,15 +44,15 @@ public class Missile extends PMovingImage {
 		if(getAngle()<0)
 			setAngle(getAngle()+Math.PI * 2);
 		
-		turnToward((int) centeredTarget.getCenterX(), (int) centeredTarget.getCenterY());
+		turnToward((int) centeredTarget.getX(), (int) centeredTarget.getY());
 		super.act();
 	}
 
 	@Override
 	public void turnToward(int x, int y) {
 		// TODO Auto-generated method stub
-		double cx = getCenterX();
-		double cy = getCenterY();
+		double cx = getX();
+		double cy = getY();
 
 		double targetAngle = Math.atan((cy - y) / (cx - x));
 		if (cx > x)

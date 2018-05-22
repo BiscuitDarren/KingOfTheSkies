@@ -198,13 +198,7 @@ public abstract class PMovingImage {
 		this.angle = angle;
 	}
 
-	public int getCenterX() {
-		return x + width / 2;
-	}
 
-	public int getCenterY() {
-		return y + height / 2;
-	}
 
 	public int getDrawCount() {
 		return drawCount;

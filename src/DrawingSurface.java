@@ -53,18 +53,17 @@ public class DrawingSurface extends PApplet {
 	public void draw() {
 		scale((float) width / 920, (float) height / 920);
 		background(150, 175, 255);
-		//front.draw(this);
+		// front.draw(this);
 		if (!gameOver) {
-			if (player.getHealth().isEmpty()) {
+			if (player.getHealth().isEmpty()) { // UPON DEATH
 				gameOver = true;
 				explodeAll();
 				gameOverImg.play();
 				if (score > highScore)
 					highScore = score;
 			}
-
-			drawPlayer();
 			drawSmokes();
+			drawPlayer();
 			processMissiles();
 			// MISC
 
@@ -177,7 +176,10 @@ public class DrawingSurface extends PApplet {
 		player.turnToward(this, pmouseX, pmouseY);
 		player.act();
 		player.draw(this);
-
+		if (frameCount % 5 == 0) {
+			if (player.getHealth().size() == 1)
+				smokes.add(new Smoke(this, "smoke.gif", player, player.getX(), player.getY(), 50, 50));
+		}
 	}
 
 	private void drawGameOver() {
