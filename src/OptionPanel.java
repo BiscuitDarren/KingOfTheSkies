@@ -123,15 +123,16 @@ public class OptionPanel extends JPanel implements MouseListener, MouseMotionLis
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-	
+	if(!drawTut) {
 		if(mouseX >= 320 && mouseX <= 470 && mouseY >=280 && mouseY <=330) {
 			DrawingSurface s = new DrawingSurface();
 		}
-		
-		else if(mouseX>= 320 && mouseX <= 470 && mouseY >=340 && mouseY <=390) {
+		if(mouseX>= 320 && mouseX <= 470 && mouseY >=340 && mouseY <=390) {
 			System.out.println("h");
 			drawTut = true;
-		}else drawTut = false;
+		}
+	}
+	else drawTut = false;
 		
 		repaint();
 		
