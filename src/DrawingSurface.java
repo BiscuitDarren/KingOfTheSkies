@@ -20,23 +20,18 @@ public class DrawingSurface extends PApplet {
 	private ArrayList<Smoke> smokes;
 	private ArrayList<Bullet> bullets;
 	private int score = 0;
-	private PImage missileImg, restartButton, frontBackground, bulletImg;
-	private Background front;
+	private PImage missileImg, restartButton, classicBackground, bulletImg, starBackground;
+	private BackgroundController front;
 	private Gif gameOverImg;
 	private int gameMode, highScore;
 	private boolean gameOver;
 
 	public DrawingSurface(int gameMode) {
-		runSketch();
-		missileImg = loadImage("missile.png");
-		frontBackground = loadImage("front.jpg");
-		restartButton = loadImage("restartButton.png");
-		bulletImg = loadImage("bullet.png");
-		gameOverImg = new Gif(this, "gameOver.gif");
 		gameOver = false;
 		this.gameMode = gameMode;
 		score = 0;
 		highScore = 0;
+		runSketch();
 	}
 
 	public void settings() {
@@ -47,22 +42,32 @@ public class DrawingSurface extends PApplet {
 		frameRate(62);
 		imageMode(CENTER);
 		cursor(CROSS);
+		missileImg = loadImage("missile.png");
+		classicBackground = loadImage("front.jpg");
+		starBackground = loadImage("middle.jpg");
+		restartButton = loadImage("restartButton.png");
+		bulletImg = loadImage("bullet.png");
+		gameOverImg = new Gif(this, "gameOver.gif");
 		missiles = new ArrayList<Missile>();
 		smokes = new ArrayList<Smoke>();
 		bullets = new ArrayList<Bullet>();
 		player = new Player(this, 460, 460);
 		missiles.add(new Missile(missileImg, player, 100, 100));
-		front = new Background(frontBackground, player, 2);
+		if (gameMode == 0)
+			front = new BackgroundController(classicBackground, player, 2);
+		else
+			front = new BackgroundController(starBackground, player, 2);
+
 	}
 
-	public void draw() { 
-		background(150, 175, 255);
-		// image(frontBackground, 460,460);
+	public void draw() {
+		background(255);
+
 		scale((float) width / 920, (float) height / 920);
 
 		if (!gameOver) {
-			front.act(this);
 			front.draw(this);
+
 			if (player.getHealth().isEmpty()) { // UPON DEATH
 				gameOver = true;
 				explodeAll();
@@ -84,6 +89,7 @@ public class DrawingSurface extends PApplet {
 			score++;
 		} else {
 			front.draw(this);
+
 			// MISC
 			drawSmokes();
 
@@ -335,7 +341,6 @@ public class DrawingSurface extends PApplet {
 		if (!gameOver && gameMode == 1)
 			alpha = 10000;
 		pushStyle();
-		// textFont(loadFont());
 		textSize(50);
 		stroke(0);
 		fill(0, 75, 125, alpha);
@@ -354,7 +359,10 @@ public class DrawingSurface extends PApplet {
 		smokes = new ArrayList<Smoke>();
 		bullets = new ArrayList<Bullet>();
 		player = new Player(this, 460, 460);
-		front.newPlayer(player);
+		if (gameMode == 0)
+			front = new BackgroundController(classicBackground, player, 2);
+		else if (gameMode == 01)
+			front = new BackgroundController(starBackground, player, 2);
 		missiles.add(new Missile(missileImg, player, 100, 100));
 	}
 
