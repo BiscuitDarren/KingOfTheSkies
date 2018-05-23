@@ -25,12 +25,18 @@ public class Player extends PMovingImage {
 	public void turnToward(PApplet p, int x, int y) {
 		double cx = p.width / 2;
 		double cy = p.height / 2;
+		if (cx - x == 0) {
+			if (cy - y > 0)
+				setAngle(3 * Math.PI / 2);
+			else
+				setAngle(Math.PI / 2);
+		} else {
+			double targetAngle = Math.atan((cy - y) / (cx - x));
+			setAngle(targetAngle);
 
-		double targetAngle = Math.atan((cy - y) / (cx - x));
-		setAngle(targetAngle);
-
-		if (cx > x)
-			setAngle(getAngle() + Math.PI);
+			if (cx > x)
+				setAngle(getAngle() + Math.PI);
+		}
 	}
 
 	public void draw(PApplet p) {

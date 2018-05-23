@@ -25,7 +25,7 @@ public class Missile extends PMovingImage {
 		// setMag(0);
 
 		setDrawCount(0);
-		MAX_dadt = Math.toRadians(2.5);
+		MAX_dadt = Math.toRadians(2.25);
 	}
 
 	public void draw(PApplet p) {

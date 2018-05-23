@@ -34,7 +34,7 @@ public class DrawingSurface extends PApplet {
 		bulletImg = loadImage("bullet.png");
 		gameOverImg = new Gif(this, "gameOver.gif");
 		gameOver = false;
-		this.gameMode = gameMode; 
+		this.gameMode = gameMode;
 		score = 0;
 		highScore = 0;
 
@@ -201,6 +201,7 @@ public class DrawingSurface extends PApplet {
 		for (int i = missiles.size() - 1; i >= 0; i--) {
 			Missile m = missiles.remove(i);
 			smokes.add(new Explosion(this, player, m.getX(), m.getY()));
+			score += 6000;
 		}
 	}
 
@@ -216,7 +217,7 @@ public class DrawingSurface extends PApplet {
 		player.draw(this);
 		if (frameCount % 5 == 0) {
 			if (player.getHealth().size() > 2)
-				;
+				smokes.add(new Smoke(this, "smoke.gif", player, player.getX(), player.getY(), 30, 30));
 			else if (player.getHealth().size() > 1)
 				smokes.add(new Smoke(this, "smoke.gif", player, player.getX(), player.getY(), 50, 50));
 			else
@@ -268,12 +269,11 @@ public class DrawingSurface extends PApplet {
 	}
 
 	private void drawSmokes() {
-		for (int i = 0; i < smokes.size(); i++) {
+		for (int i = smokes.size() - 1; i >= 0 ; i--) {
 			if (smokes.size() > 0)
 				smokes.get(i).draw(this);
 			if (!smokes.get(i).isPlaying()) {
 				smokes.remove(i);
-				i--;
 			}
 
 		}
