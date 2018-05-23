@@ -17,6 +17,8 @@ import processing.awt.PSurfaceAWT;
 public class Main extends JFrame {
 	
 	private JPanel cardPanel;
+	private OptionPanel panel1;
+	private GamePanel panel2;
 	
 	
 	public Main(String title) {
@@ -28,8 +30,8 @@ public class Main extends JFrame {
 	    CardLayout cl = new CardLayout();
 	    cardPanel.setLayout(cl);
 	    
-		OptionPanel panel1 = new OptionPanel(this);    
-	    GamePanel panel2 = new GamePanel(this);
+		panel1 = new OptionPanel(this);    
+	    panel2 = new GamePanel(this);
 	    cardPanel.add(panel1,"1");
 	    cardPanel.add(panel2,"2"); 
 	    
@@ -46,7 +48,7 @@ public class Main extends JFrame {
 	public static void main(String args[]) {
 		
 		Main w = new Main("AP Animation Demo");
-		//DrawingSurface s = new DrawingSurface();
+		
 		 
 	}
 	
