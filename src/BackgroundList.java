@@ -16,7 +16,7 @@ public class BackgroundList {
 
 	public void draw(PApplet p) {
 		for (int i = 0; i < backgrounds.length; i++) {
-			backgrounds[i].act();
+			//backgrounds[i].act();
 			int xDif = backgrounds[i].getX() - center.getX();
 			int yDif = backgrounds[i].getY() - center.getY();
 			if (Math.abs(xDif) > backgrounds[i].getWidth() || Math.abs(yDif) > backgrounds[i].getHeight())
@@ -28,8 +28,7 @@ public class BackgroundList {
 							backgrounds[j].setHasBottom(true);
 							break;
 						} else if (center.getVy() < 0 && !backgrounds[j].hasTop()) {
-							backgrounds[i].moveToLocation(backgrounds[j].getX(),
-									backgrounds[j].getY() - backgrounds[j].getHeight());
+							backgrounds[i].moveToLocation(backgrounds[j].getX(), backgrounds[j].getY() - backgrounds[j].getHeight());
 							backgrounds[j].setHasTop(true);
 							break;
 						}

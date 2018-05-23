@@ -29,7 +29,7 @@ public class DrawingSurface extends PApplet {
 	public DrawingSurface(int gameMode) {
 		runSketch();
 		missileImg = loadImage("missile.png");
-		frontBackground = loadImage("front.png");
+		frontBackground = loadImage("front.jpg");
 		restartButton = loadImage("restartButton.png");
 		bulletImg = loadImage("bullet.png");
 		gameOverImg = new Gif(this, "gameOver.gif");
@@ -37,15 +37,12 @@ public class DrawingSurface extends PApplet {
 		this.gameMode = gameMode;
 		score = 0;
 		highScore = 0;
-
 	}
 
 	public void settings() {
 		size(920, 920);
 	}
 
-	// The statements in the setup() function
-	// execute once when the program begins
 	public void setup() {
 		frameRate(62);
 		imageMode(CENTER);
@@ -53,14 +50,14 @@ public class DrawingSurface extends PApplet {
 		missiles = new ArrayList<Missile>();
 		smokes = new ArrayList<Smoke>();
 		bullets = new ArrayList<Bullet>();
-		player = new Player(this, 540, 540);
+		player = new Player(this, 460, 460);
 		missiles.add(new Missile(missileImg, player, 100, 100));
 		front = new BackgroundList(frontBackground, player, 2);
 	}
 
 	public void draw() {
 		background(150, 175, 255);
-		// background(frontBackground);
+		// image(frontBackground, 460,460);
 		scale((float) width / 920, (float) height / 920);
 		// front.draw(this);
 		if (!gameOver) {
@@ -109,7 +106,7 @@ public class DrawingSurface extends PApplet {
 			if (bullets.get(i).getDrawCount() < 180) {
 				for (int j = missiles.size() - 1; j >= 0; j--) {
 					if (i < bullets.size() && bullets.get(i).collidesWith(missiles.get(j))) {
-						smokes.add(new Explosion(this,  missiles.get(j).getX(), missiles.get(j).getY()));
+						smokes.add(new Explosion(this, missiles.get(j).getX(), missiles.get(j).getY()));
 						bullets.remove(i);
 						missiles.remove(j);
 						score += 6000;
@@ -140,11 +137,14 @@ public class DrawingSurface extends PApplet {
 			fill(204, 255, 255, 100);
 		}
 		rectMode(CENTER);
-		rect(460, 787, 300, 100, 25, 25, 25, 25);
+		rect(460, 787, 275, 100, 25, 25, 25, 25);
 		textAlign(CENTER);
 		fill(0);
 		stroke(0);
-		text("MAIN MENU", 460, 800);
+		if (gameMode == 0)
+			text("DAY", 460, 805);
+		else if (gameMode == 1)
+			text("MIDNIGHT", 460, 805);
 		popStyle();
 	}
 
@@ -174,8 +174,10 @@ public class DrawingSurface extends PApplet {
 		if (dist(x, y, 450, 600) < 125 / 2 && gameOver) // restart button
 			reset(gameMode);
 		if (gameOver && x < 610 && x > 310 && y < 837 && y > 738) {// main menu button
-			// HERE
-			exit();
+			if (gameMode == 1)
+				gameMode = 0;
+			else if (gameMode == 0)
+				gameMode = 1;
 		}
 	}
 
@@ -222,7 +224,7 @@ public class DrawingSurface extends PApplet {
 		player.draw(this);
 		if (frameCount % 5 == 0) {
 			if (player.getHealth().size() > 2)
-				smokes.add(new Smoke(this, "smoke.gif",  player.getX(), player.getY(), 30, 30));
+				smokes.add(new Smoke(this, "smoke.gif", player.getX(), player.getY(), 30, 30));
 			else if (player.getHealth().size() > 1)
 				smokes.add(new Smoke(this, "smoke.gif", player.getX(), player.getY(), 50, 50));
 			else
@@ -327,7 +329,7 @@ public class DrawingSurface extends PApplet {
 
 	private void drawScore() {
 		int alpha = 100;
-		if (gameMode == 1)
+		if (!gameOver && gameMode == 1)
 			alpha = 10000;
 		pushStyle();
 		// textFont(loadFont());
@@ -347,6 +349,7 @@ public class DrawingSurface extends PApplet {
 
 		missiles = new ArrayList<Missile>();
 		smokes = new ArrayList<Smoke>();
+		bullets = new ArrayList<Bullet>();
 		player = new Player(this, 540, 540);
 		missiles.add(new Missile(missileImg, player, 100, 100));
 	}
