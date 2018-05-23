@@ -181,24 +181,27 @@ public class OptionPanel extends JPanel implements MouseListener, MouseMotionLis
 		if(!drawTut) {
 			if(mouseX >= 320 && mouseX <= 470 && mouseY >=280 && mouseY <=330) {
 				bigChoice = true;
-				System.out.println(bigChoice);
+				
 			}else bigChoice = false;
 			if(mouseX>= 320 && mouseX <= 470 && mouseY >=340 && mouseY <=390) {
 				drawTut = true;
+				if(bigChoice) drawTut = false;
 			}
+			
 		}
 		else drawTut = false;
-
-		if(isClassic) {
-			isClassic = false;
-			bigChoice = false;
+if(bigChoice) {
+	if(isClassic) {
+			allFalse();
 			w.start(0);
 		}
-		if(isMidnight) {
-			isClassic = false;
-			bigChoice = false;
+	if(isMidnight) {
+			allFalse();
 			w.start(1);
 		}
+	
+}
+		
 
 
 		repaint();
@@ -233,24 +236,37 @@ public class OptionPanel extends JPanel implements MouseListener, MouseMotionLis
 				isPlay = true;
 			}else isPlay = false;
 
-			if(mouseX>= 320 && mouseX <= 470 && mouseY >=340 && mouseY <=390) {
+			if(bigChoice) isTut = false;
+			else if(mouseX>= 320 && mouseX <= 470 && mouseY >=340 && mouseY <=390) {
 				isTut = true;
 			}else isTut = false;
-			repaint();
+			
+			
+			//repaint();
 
 		}
 
 		if(bigChoice) {
+			isTut = false;
 			if(mouseX>=50 && mouseX<=350 && mouseY >= 103 && mouseY <=504) {
 				isClassic = true;
 			}else isClassic = false;
 			if(mouseX >= 450 && mouseX <=750 && mouseY>= 103 && mouseY <= 504) {
 				isMidnight = true;
 			}else isMidnight = false;
+			
+			
 		}
 
 		repaint();
 
 	}
-
+	
+	private void allFalse() {
+		isPlay = isTut = drawTut = false;
+		bigChoice = false;
+		isClassic = isMidnight = false;
+		
+	}
+	
 }
