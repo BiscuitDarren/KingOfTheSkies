@@ -190,7 +190,7 @@ public class OptionPanel extends JPanel implements MouseListener, MouseMotionLis
 			
 		}
 		else drawTut = false;
-if(bigChoice) {
+
 	if(isClassic) {
 			allFalse();
 			w.start(0);
@@ -200,7 +200,7 @@ if(bigChoice) {
 			w.start(1);
 		}
 	
-}
+
 		
 
 
