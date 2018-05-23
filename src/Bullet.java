@@ -10,13 +10,11 @@ import processing.core.PImage;
  *         incluing missiles and rocks or objects in its way.
  */
 public class Bullet extends PMovingImage {
-	private PMovingImage center;
 
-	public Bullet(PImage img, PMovingImage player, int x, int y, double angle, int speed) {
+	public Bullet(PImage img, int x, int y, double angle, int speed) {
 		super(img, x, y, 10, 30, speed);
 		setAngle(angle);
 		setMag(speed);
-		center = player;
 	}
 
 	public void act() {
@@ -25,7 +23,7 @@ public class Bullet extends PMovingImage {
 		moveByAmount(getVx(), getVy());
 	}
 
-	public void draw(PApplet p) {
+	public void draw(PApplet p, PMovingImage center) {
 		p.pushMatrix();
 		double xDif = getX() - center.getX();
 		double yDif = getY() - center.getY();
@@ -41,4 +39,6 @@ public class Bullet extends PMovingImage {
 		// TODO Auto-generated method stub
 
 	}
+
+
 }

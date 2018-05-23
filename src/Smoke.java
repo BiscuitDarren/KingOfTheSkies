@@ -14,24 +14,23 @@ import processing.core.PImage;
  */
 public class Smoke extends PMovingImage {
 	private Gif smokeAnimation;
-	private PMovingImage centeredTarget;
+	
 
-	public Smoke(PApplet parent, PMovingImage center, int x, int y) {
-		this(parent, "smoke.gif", center, x, y, 70, 70);
+	public Smoke(PApplet parent, int x, int y) {
+		this(parent, "smoke.gif", x, y, 70, 70);
 	}
 
-	public Smoke(PApplet parent, String filename, PMovingImage center, int x, int y, int w, int h) {
+	public Smoke(PApplet parent, String filename, int x, int y, int w, int h) {
 		super(parent.loadImage(filename), x, y, w, h, 0);
 		// TODO Auto-generated constructor stub
-		centeredTarget = center;
 		smokeAnimation = new Gif(parent, filename);
 		smokeAnimation.play();
 	}
 
-	public void draw(PApplet p) {
+	public void draw(PApplet p, PMovingImage center) {
 		p.pushMatrix();
-		double xDif = getX() - centeredTarget.getX();
-		double yDif = getY() - centeredTarget.getY();
+		double xDif = getX() - center.getX();
+		double yDif = getY() - center.getY();
 		p.translate((float) (460 + xDif), (float) (460 + yDif));
 		p.rotate((float) getAngle() * -1 + p.PI / 2);
 
