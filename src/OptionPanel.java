@@ -54,7 +54,10 @@ public class OptionPanel extends JPanel implements MouseListener, MouseMotionLis
 
 		if(drawTut) {
 			g.drawImage((new ImageIcon("wood.png")).getImage(), 0, 0, 800, 600, this);
-
+			g.setColor(Color.WHITE);
+			g.drawString("Click anywhere to return", 20, 30);
+			
+			
 			g.setColor(Color.WHITE);
 			g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 20));
 
@@ -78,7 +81,7 @@ public class OptionPanel extends JPanel implements MouseListener, MouseMotionLis
 			g.drawString("Homing missiles, if they hit you, you die", 400, 250);
 
 			g.drawString("Bullets blow up missiles. Press mouse to", 400, 370);
-			g.drawString("generate", 400, 390);
+			g.drawString("generate in direction of mouse click", 400, 390);
 
 			g.drawString("You have 3 lives at the start. Every time", 400, 480);
 			g.drawString("a missile hits you, you lose a life", 400, 500);
@@ -87,7 +90,8 @@ public class OptionPanel extends JPanel implements MouseListener, MouseMotionLis
 		}
 		else if(bigChoice) {
 			g.drawImage((new ImageIcon("wood.png")).getImage(), 0, 0, 800, 600, this);
-
+			g.setColor(Color.WHITE);
+			g.drawString("Click anywhere to return", 20, 30);
 
 			if(isClassic) {
 				g.setColor(new Color(173, 161, 161));
