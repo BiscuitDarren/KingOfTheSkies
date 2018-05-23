@@ -30,8 +30,8 @@ public class Main extends JFrame {
 	    
 		OptionPanel panel1 = new OptionPanel(this);    
 	    GamePanel panel2 = new GamePanel(this);
-	    cardPanel.add(panel1,"1"); // Card is named "1"
-	    cardPanel.add(panel2,"2"); // Card is named "2"
+	    cardPanel.add(panel1,"1");
+	    cardPanel.add(panel2,"2"); 
 	    
 	    add(cardPanel);
 	    addKeyListener(panel2);
@@ -56,8 +56,8 @@ public class Main extends JFrame {
 		requestFocus();
 	}
 	
-	public void start() {
-		DrawingSurface drawing = new DrawingSurface(0);
+	public void start(int x) {
+		DrawingSurface drawing = new DrawingSurface(x);
 
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();

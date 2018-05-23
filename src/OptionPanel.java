@@ -13,11 +13,12 @@ import java.awt.geom.AffineTransform;
 public class OptionPanel extends JPanel implements MouseListener, MouseMotionListener {
 	
 	private Main w;
+	
 	private Image background;
-	
 	private boolean isPlay, isTut, drawTut;
-	
+	private boolean bigChoice;
 	private int mouseX, mouseY;
+	private boolean isClassical, isMidnight;
 	
 	public OptionPanel(Main w) {
 		this.w = w;
@@ -29,6 +30,9 @@ public class OptionPanel extends JPanel implements MouseListener, MouseMotionLis
 	    
 		 isPlay = isTut = drawTut = false;
 		 mouseX = mouseY = 0;
+		 bigChoice = false;
+		 
+		 isClassical = isMidnight = false;
 		
 	}
 	
@@ -46,10 +50,58 @@ public class OptionPanel extends JPanel implements MouseListener, MouseMotionLis
 		
 	    
 	    g.drawImage(background, 0, 0, 800, 600,this);
-	    if(drawTut) {
-	    	g.drawLine(12, 23, 243, 244);
-	    }
 	    
+	    
+	    if(drawTut) {
+	    	g.drawImage((new ImageIcon("wood.png")).getImage(), 0, 0, 800, 600, this);
+	    	
+	    	g.setColor(Color.WHITE);
+    		g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 20));
+    		
+	    	g.drawImage((new ImageIcon("redBaron.png")).getImage(), 75, 75, 100, 100, this);
+	    	g.drawString("Player", 200, 140);
+	    	
+	    	g.drawImage((new ImageIcon("missile.png")).getImage(), 100, 200, 55, 100, this);
+	    	g.drawString("Missiles", 200, 250);
+	    	
+	    	g.drawImage((new ImageIcon("bullet.png")).getImage(), 100, 330, 50, 100, this);
+	    	g.drawString("Bullets", 200, 380);
+	    	
+	    }
+	    else if(bigChoice) {
+	    	
+	   
+	    	
+	    		if(isClassical) {
+	    			g.setColor(new Color(173, 161, 161));
+	    		 	g.fillRect(50, 100, 300, 400);
+	    		 	g.setColor(new Color(79, 74, 74));
+	    		 	g.fillRect(450, 100, 300, 400);
+	    		 	
+	    		 	
+	    		 	
+	    		 	
+	    		 	
+	    		}else if(isMidnight) {
+	    		g.setColor(new Color(173, 161, 161));
+    		 	g.fillRect(450, 100, 300, 400);
+    		 	 g.setColor(new Color(79, 74, 74));
+    		 	g.fillRect(50, 100, 300, 400);
+	    		}
+	    		else {
+	    			 g.setColor(new Color(79, 74, 74));
+	    			 g.fillRect(50, 100, 300, 400);
+		   
+		    		 	g.fillRect(450, 100, 300, 400);
+	    			 
+	    		}
+
+	    	 	g.setColor(Color.WHITE);
+	    		g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 45));
+	    		g.drawString("CLASSICAL", 80 , 300);
+	    		g.drawString("MIDNIGHT", 495, 300);
+    }
+    
 	    else {
 	    	if(isPlay) {
 		    	g.setColor(new Color(173, 161, 161));
@@ -107,15 +159,27 @@ public class OptionPanel extends JPanel implements MouseListener, MouseMotionLis
 	public void mouseReleased(MouseEvent e) {
 	if(!drawTut) {
 		if(mouseX >= 320 && mouseX <= 470 && mouseY >=280 && mouseY <=330) {
-			w.start();
-		}
+			bigChoice = true;
+			System.out.println(bigChoice);
+		}else bigChoice = false;
 		if(mouseX>= 320 && mouseX <= 470 && mouseY >=340 && mouseY <=390) {
-			System.out.println("h");
 			drawTut = true;
 		}
 	}
 	else drawTut = false;
-		
+	
+	if(isClassical) {
+		isClassical = false;
+		bigChoice = false;
+		w.start(0);
+	}
+	if(isMidnight) {
+		isClassical = false;
+		bigChoice = false;
+		w.start(1);
+	}
+	
+	
 		repaint();
 		
 	}
@@ -156,7 +220,16 @@ public class OptionPanel extends JPanel implements MouseListener, MouseMotionLis
 		
 		}
 		
+		if(bigChoice) {
+			if(mouseX>=50 && mouseX<=350 && mouseY >= 103 && mouseY <=504) {
+				isClassical = true;
+			}else isClassical = false;
+			if(mouseX >= 450 && mouseX <=750 && mouseY>= 103 && mouseY <= 504) {
+				isMidnight = true;
+			}else isMidnight = false;
+		}
 		
+		repaint();
 		
 	}
 	
