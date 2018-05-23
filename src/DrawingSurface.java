@@ -338,6 +338,7 @@ public class DrawingSurface extends PApplet {
 		score = 0;
 		frameCount = 0;
 		gameOver = false;
+		this.gameMode = gameMode;
 
 		missiles = new ArrayList<Missile>();
 		smokes = new ArrayList<Smoke>();
