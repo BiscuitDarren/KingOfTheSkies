@@ -26,7 +26,7 @@ public class DrawingSurface extends PApplet {
 	private int gameMode, highScore;
 	private boolean gameOver;
 
-	public DrawingSurface() {
+	public DrawingSurface(int gameMode) {
 		runSketch();
 		missileImg = loadImage("missile.png");
 		frontBackground = loadImage("front.png");
@@ -34,8 +34,9 @@ public class DrawingSurface extends PApplet {
 		bulletImg = loadImage("bullet.png");
 		gameOverImg = new Gif(this, "gameOver.gif");
 		gameOver = false;
-		gameMode = 0;
+		this.gameMode = gameMode;
 		score = 0;
+		highScore = 0;
 
 	}
 
@@ -80,8 +81,9 @@ public class DrawingSurface extends PApplet {
 		} else {
 			// MISC
 			drawSmokes();
-			drawScore();
+
 			try {
+				drawScore();
 				filter(GRAY);
 			} catch (ArrayIndexOutOfBoundsException e) {
 				return;
@@ -101,11 +103,11 @@ public class DrawingSurface extends PApplet {
 			bullets.get(i).draw(this);
 			if (bullets.get(i).getDrawCount() < 180) {
 				for (int j = missiles.size() - 1; j >= 0; j--) {
-					if (bullets.size() > 0 && bullets.get(i).collidesWith(missiles.get(j))) {
+					if (i < bullets.size() && bullets.get(i).collidesWith(missiles.get(j))) {
 						smokes.add(new Explosion(this, player, missiles.get(j).getX(), missiles.get(j).getY()));
 						bullets.remove(i);
 						missiles.remove(j);
-						
+						score += 6000;
 					}
 				}
 			} else {
@@ -166,9 +168,8 @@ public class DrawingSurface extends PApplet {
 
 		if (dist(x, y, 450, 600) < 125 / 2 && gameOver) // restart button
 			reset();
-		if (x < 610 && x > 310 && y < 837 && y > 738) {// main menu button
-			//HERE
-			
+		if (gameOver && x < 610 && x > 310 && y < 837 && y > 738) {// main menu button
+			// HERE
 			exit();
 		}
 	}

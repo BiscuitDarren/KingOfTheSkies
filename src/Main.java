@@ -57,7 +57,7 @@ public class Main extends JFrame {
 	}
 	
 	public void start() {
-		DrawingSurface drawing = new DrawingSurface();
+		DrawingSurface drawing = new DrawingSurface(0);
 
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
