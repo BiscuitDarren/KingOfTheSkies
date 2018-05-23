@@ -167,7 +167,7 @@ public class DrawingSurface extends PApplet {
 		int y = (int) (mouseY / (height / 920.0));
 
 		if (dist(x, y, 450, 600) < 125 / 2 && gameOver) // restart button
-			reset();
+			reset(gameMode);
 		if (gameOver && x < 610 && x > 310 && y < 837 && y > 738) {// main menu button
 			// HERE
 			exit();
@@ -269,7 +269,7 @@ public class DrawingSurface extends PApplet {
 	}
 
 	private void drawSmokes() {
-		for (int i = smokes.size() - 1; i >= 0 ; i--) {
+		for (int i = smokes.size() - 1; i >= 0; i--) {
 			if (smokes.size() > 0)
 				smokes.get(i).draw(this);
 			if (!smokes.get(i).isPlaying()) {
@@ -333,7 +333,7 @@ public class DrawingSurface extends PApplet {
 		popStyle();
 	}
 
-	public void reset() {
+	public void reset(int gameMode) {
 		player.resetLife(this);
 		score = 0;
 		frameCount = 0;
