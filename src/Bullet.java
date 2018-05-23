@@ -3,7 +3,7 @@ import processing.core.PImage;
 
 /**
  * 
- * @author Eshan Jain & Darren Biskup
+ * @author Eshan Jain
  * 
  *         This class represents a Bullet Object which is a PMovingImage. A
  *         bullet is shot from a player, and destroys things it collides with,
