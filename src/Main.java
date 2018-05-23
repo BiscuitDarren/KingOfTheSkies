@@ -47,7 +47,7 @@ public class Main extends JFrame {
 		
 		Main w = new Main("AP Animation Demo");
 		//DrawingSurface s = new DrawingSurface();
-		
+		 
 	}
 	
 	

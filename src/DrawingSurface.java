@@ -34,7 +34,7 @@ public class DrawingSurface extends PApplet {
 		bulletImg = loadImage("bullet.png");
 		gameOverImg = new Gif(this, "gameOver.gif");
 		gameOver = false;
-		this.gameMode = gameMode;
+		this.gameMode = gameMode; 
 		score = 0;
 		highScore = 0;
 
