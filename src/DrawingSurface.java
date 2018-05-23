@@ -21,7 +21,7 @@ public class DrawingSurface extends PApplet {
 	private ArrayList<Bullet> bullets;
 	private int score = 0;
 	private PImage missileImg, restartButton, frontBackground, bulletImg;
-	private BackgroundList front;
+	private Background front;
 	private Gif gameOverImg;
 	private int gameMode, highScore;
 	private boolean gameOver;
@@ -52,15 +52,17 @@ public class DrawingSurface extends PApplet {
 		bullets = new ArrayList<Bullet>();
 		player = new Player(this, 460, 460);
 		missiles.add(new Missile(missileImg, player, 100, 100));
-		front = new BackgroundList(frontBackground, player, 2);
+		front = new Background(frontBackground, player, 2);
 	}
 
 	public void draw() {
 		background(150, 175, 255);
 		// image(frontBackground, 460,460);
 		scale((float) width / 920, (float) height / 920);
-		// front.draw(this);
+
 		if (!gameOver) {
+			front.act(this);
+			front.draw(this);
 			if (player.getHealth().isEmpty()) { // UPON DEATH
 				gameOver = true;
 				explodeAll();
@@ -81,6 +83,7 @@ public class DrawingSurface extends PApplet {
 			spawnMissiles();
 			score++;
 		} else {
+			front.draw(this);
 			// MISC
 			drawSmokes();
 
@@ -350,7 +353,8 @@ public class DrawingSurface extends PApplet {
 		missiles = new ArrayList<Missile>();
 		smokes = new ArrayList<Smoke>();
 		bullets = new ArrayList<Bullet>();
-		player = new Player(this, 540, 540);
+		player = new Player(this, 460, 460);
+		front.newPlayer(player);
 		missiles.add(new Missile(missileImg, player, 100, 100));
 	}
 

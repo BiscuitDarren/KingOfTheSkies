@@ -1,81 +1,89 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
-/**
- * parallaxing background that follows the player
- * 
- * @author Darren Biskup
- *
- */
-public class Background extends PMovingImage {
-	private PMovingImage center;
-	private boolean hasLeft, hasRight, hasTop, hasBottom;
-	private int rate;
+public class Background {
 
-	public Background(PImage img, PMovingImage center, int x, int y, int w, int h,int rate, boolean hasLeft, boolean hasRight,
-			boolean hasTop, boolean hasBottom) {
-		super(img, x, y, w, h, 0);
-		this.setHasLeft(hasLeft);
-		this.setHasRight(hasRight);
-		this.setHasTop(hasTop);
-		this.setHasBottom(hasBottom);
+	private int rate;
+	private PImage background;
+	private PMovingImage center;
+	private int centerX, centerY;
+
+	public Background(PImage background, PMovingImage center, int rate) {
+		this.background = background;
 		this.rate = rate;
 		this.center = center;
-
-	}
-
-	public void act() {
-		setVx(center.getVx() / rate);
-		setVy(center.getVy() /	rate);
-		moveByAmount(getVx(), getVy());
+		this.centerX = center.getX();
+		this.centerY = center.getY();
+		background.resize(1920, 1080);
 	}
 
 	public void draw(PApplet p) {
-		p.pushMatrix();
-		double xDif = getX() - center.getX();
-		double yDif = getY() - center.getY();
-		p.translate((float) (460 + xDif), (float) (460 + yDif));
 
-		p.image(getImage(), 0, 0, getWidth(), getHeight());
-		p.popMatrix();
+		try {
+			p.set((int) (centerX - background.width), (int) (centerY - background.height), background);
+			p.set((int) (centerX - background.width), (int) (centerY), background);
+			p.set((int) (centerX), (int) (centerY), background);
+			p.set((int) (centerX), (int) (centerY - background.height), background);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			return;
+		}
 	}
 
-	@Override
-	public void turnToward(int x, int y) {
-		// TODO Auto-generated method stub
-		System.out.println("no effect");
+	public void act(PApplet p) {
+		centerX -= center.getVx() / rate;
+		centerY -= center.getVy() / rate;
+		if (centerX < 0)
+			centerX = p.width - 1;
+		else if (centerX >= p.width)
+			centerX = 1;
+		if (centerY < 0)
+			centerY = p.height - 1;
+		else if (centerY >= p.height)
+			centerY = 1;
+	}
+	
+	public void newPlayer(PMovingImage center) {
+		this.center = center;
+		this.centerX = center.getX();
+		this.centerY = center.getY();
 	}
 
-	public boolean hasLeft() {
-		return hasLeft;
-	}
-
-	public void setHasLeft(boolean hasLeft) {
-		this.hasLeft = hasLeft;
-	}
-
-	public boolean hasRight() {
-		return hasRight;
-	}
-
-	public void setHasRight(boolean hasRight) {
-		this.hasRight = hasRight;
-	}
-
-	public boolean hasTop() {
-		return hasTop;
-	}
-
-	public void setHasTop(boolean hasTop) {
-		this.hasTop = hasTop;
-	}
-
-	public boolean hasBottom() {
-		return hasBottom;
-	}
-
-	public void setHasBottom(boolean hasBottom) {
-		this.hasBottom = hasBottom;
-	}
-
+	/*
+	 * private Background[] backgrounds; private PMovingImage center;
+	 * 
+	 * public BackgroundList(PImage background, PMovingImage center, int rate) {
+	 * backgrounds = new Background[4]; backgrounds[0] = new Background(background,
+	 * center, 690, 230, 920, 920, rate, true, false, false, true); backgrounds[1] =
+	 * new Background(background, center, 230, 230, 920, 920, rate, false, true,
+	 * false, true); backgrounds[2] = new Background(background, center, 230, 690,
+	 * 920, 920, rate, false, true, true, false); backgrounds[3] = new
+	 * Background(background, center, 690, 690, 920, 920, rate, true, false, true,
+	 * false); this.center = center; }
+	 * 
+	 * public void draw(PApplet p) { for (int i = 0; i < backgrounds.length; i++) {
+	 * //backgrounds[i].act(); int xDif = backgrounds[i].getX() - center.getX(); int
+	 * yDif = backgrounds[i].getY() - center.getY(); if (Math.abs(xDif) >
+	 * backgrounds[i].getWidth() || Math.abs(yDif) > backgrounds[i].getHeight()) for
+	 * (int j = 0; j < backgrounds.length; j++) { if (j != i) { if (center.getVy() >
+	 * 0 && !backgrounds[j].hasBottom()) {
+	 * backgrounds[i].moveToLocation(backgrounds[j].getX(), backgrounds[j].getY() +
+	 * backgrounds[j].getHeight()); backgrounds[j].setHasBottom(true); break; } else
+	 * if (center.getVy() < 0 && !backgrounds[j].hasTop()) {
+	 * backgrounds[i].moveToLocation(backgrounds[j].getX(), backgrounds[j].getY() -
+	 * backgrounds[j].getHeight()); backgrounds[j].setHasTop(true); break; } if
+	 * (center.getVx() > 0 && !backgrounds[j].hasRight()) {
+	 * backgrounds[i].moveToLocation(backgrounds[j].getX() +
+	 * backgrounds[j].getWidth(), backgrounds[j].getY());
+	 * backgrounds[j].setHasRight(true); break; } else if (center.getVx() < 0 &&
+	 * !backgrounds[j].hasLeft()) {
+	 * backgrounds[i].moveToLocation(backgrounds[j].getX() -
+	 * backgrounds[j].getWidth(), backgrounds[j].getY());
+	 * backgrounds[j].setHasLeft(true); break; }
+	 * 
+	 * } } backgrounds[i].draw(p); } updateFlags(); }
+	 * 
+	 * private void updateFlags() {
+	 * 
+	 * }
+	 */
 }
