@@ -15,7 +15,7 @@ public class Background {
 		this.centerX = center.getX();
 		this.centerY = center.getY();
 		background.resize(1920, 1080);
-	}
+	} 
 
 	public void draw(PApplet p) {
 

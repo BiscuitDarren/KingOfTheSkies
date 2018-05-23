@@ -55,7 +55,7 @@ public class DrawingSurface extends PApplet {
 		front = new Background(frontBackground, player, 2);
 	}
 
-	public void draw() {
+	public void draw() { 
 		background(150, 175, 255);
 		// image(frontBackground, 460,460);
 		scale((float) width / 920, (float) height / 920);
